@@ -196,6 +196,7 @@ function renderQuestion() {
     b.addEventListener("click", () => choose(i));
     holder.append(b);
   });
+  if (gameMode === "study") updateStudyPanel();
 }
 function choose(index) {
   if (locked) return;
