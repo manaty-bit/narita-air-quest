@@ -236,6 +236,19 @@ function renderQuestion() {
   $("study-review-badge").hidden = !(gameMode === "study" && studyReviewAtStart.has(q.id));
   $("question-label").textContent = `${gameMode === "study" ? "STUDY" : "QUESTION"} ${String(currentIndex + 1).padStart(2, "0")}`;
   $("question-text").textContent = q.question;
+  const figure = $("quiz-illustration");
+  const illustration = $("quiz-illustration-image");
+  figure.hidden = true;
+  illustration.removeAttribute("src");
+  const imagePath = typeof q.image === "string" ? q.image : "";
+  // 画像はリポジトリ内の安全な相対パスに限定する。
+  if (/^assets\/[a-zA-Z0-9_/-]+\.svg$/.test(imagePath)) {
+    illustration.alt = q.imageAlt || "問題を考えるためのイラスト";
+    $("quiz-illustration-caption").textContent = q.imageCaption || "図を見て考えよう";
+    illustration.onload = () => { if (illustration.getAttribute("src") === imagePath) figure.hidden = false; };
+    illustration.onerror = () => { figure.hidden = true; };
+    illustration.src = imagePath;
+  }
   const percentage = Math.round((currentIndex / order.length) * 100);
   $("progress-fill").style.width = `${percentage}%`;
   $("progress-track").setAttribute("aria-valuenow", String(percentage));
