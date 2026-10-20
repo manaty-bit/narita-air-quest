@@ -68,6 +68,7 @@ function renderQuestion() {
   $("score-best").textContent = String(best);
   $("score-position").textContent = `${currentIndex+1} / ${order.length}`;
   $("question-category").textContent = q.category;
+  $("difficulty-badge").hidden = q.difficulty !== "hard";
   $("question-label").textContent = `QUESTION ${String(currentIndex+1).padStart(2,"0")}`;
   $("question-text").textContent = q.question;
   const percentage = Math.round((currentIndex / order.length) * 100);
