@@ -4,6 +4,9 @@
 const BEST_KEY = "narita-air-quest-best-v1";
 const ALL = "__all__";
 const LETTERS = ["A", "B", "C", "D"];
+const STUDY_TOTAL = 10;
+const STUDY_HARD_COUNT = 4;
+let gameMode = "challenge"; // "challenge" | "study"
 let soundEnabled = false;
 let audioContext = null;
 let milestoneTimeout = null;
@@ -35,8 +38,36 @@ function showScreen(name) {
 function updateHome() { $("home-count").textContent = String(bank.length); $("home-best").textContent = String(best); }
 function updateAvailable() {
   const n = category === ALL ? bank.length : bank.filter(q => q.category === category).length;
-  $("available-caption").textContent = `${n}問からランダムに出題 ／ 1問間違えたら終了 ／ 記録はこの端末だけに保存`;
+  $("available-caption").textContent = `連続正解チャレンジ：${n}問からランダムに出題 ／ 1問間違えたら終了`;
   $("start-button").disabled = n === 0;
+  const hard = bank.filter(q => q.difficulty === "hard").length;
+  const normal = bank.length - hard;
+  $("study-button").disabled = hard < STUDY_HARD_COUNT || normal < STUDY_TOTAL - STUDY_HARD_COUNT;
+}
+// 学習モードは全ジャンルから毎回10問（難問4問、通常6問）。
+// 未出題問題の答えを一覧表示する機能は設けない。
+function selectStudyQuestions() {
+  const hard = shuffle(bank.filter(q => q.difficulty === "hard")).slice(0, STUDY_HARD_COUNT);
+  const normal = shuffle(bank.filter(q => q.difficulty !== "hard")).slice(0, STUDY_TOTAL - STUDY_HARD_COUNT);
+  if (hard.length !== STUDY_HARD_COUNT || normal.length !== STUDY_TOTAL - STUDY_HARD_COUNT) return [];
+  return shuffle([...hard, ...normal]);
+}
+function paintScoreboard() {
+  $("score-streak").innerHTML = gameMode === "study"
+    ? `${streak} <small>/ ${STUDY_TOTAL}問</small>`
+    : `${streak} <small>COMBO</small>`;
+  $("score-best").textContent = gameMode === "study" ? `${STUDY_HARD_COUNT}問` : String(best);
+}
+function updateStudyPanel(correct = null) {
+  const panel = $("combo-panel");
+  panel.classList.remove("is-ready", "is-low", "is-mid", "is-high", "is-top", "is-wrong", "is-pop");
+  panel.classList.add(correct === false ? "is-wrong" : "is-low");
+  $("combo-icon").textContent = correct === null ? "📘" : correct ? "✨" : "💡";
+  $("combo-title").textContent = correct === null ? "10問で知識を増やそう！"
+    : correct ? `正解！ 現在${streak}問正解` : "解説を読んで覚えよう！";
+  $("combo-message").textContent = correct === null
+    ? "難問4問入り。間違えても10問目まで続けられるよ。"
+    : correct ? "さらに深掘りも読んでみよう。" : "今回はここで学べばOK。次の問題へ！";
 }
 function getComboStage(value) {
   if (value <= 0) return { cls: "is-ready", icon: "🛫", title: "さあ、テイクオフ！", message: "連続正解で、フライトメーターをのばそう！" };
@@ -82,7 +113,8 @@ function init() {
     opt.value = name; opt.textContent = name; $("category-select").append(opt);
   }
   $("category-select").addEventListener("change", e => { category = e.target.value; updateAvailable(); });
-  $("start-button").addEventListener("click", start);
+  $("start-button").addEventListener("click", () => start("challenge"));
+  $("study-button").addEventListener("click", () => start("study"));
   const toggle = $("sound-toggle");
   toggle.addEventListener("click", () => {
     soundEnabled = !soundEnabled;
@@ -96,7 +128,7 @@ function init() {
     updateHome(); showScreen("home");
   });
   $("next-button").addEventListener("click", next);
-  $("retry-button").addEventListener("click", start);
+  $("retry-button").addEventListener("click", () => start(gameMode));
   $("return-button").addEventListener("click", () => { updateHome(); showScreen("home"); });
   document.addEventListener("keydown", (event) => {
     if (!$("screen-quiz").classList.contains("is-active") || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -107,27 +139,36 @@ function init() {
   if (raw.length && bank.length !== raw.length) console.warn(`無効または重複した問題が ${raw.length - bank.length} 問あり、除外しました。`);
   updateAvailable();
 }
-function start() {
+function start(mode = "challenge") {
+  if (mode !== "study" && mode !== "challenge") return;
   const selected = category === ALL ? bank : bank.filter(q => q.category === category);
-  if (!selected.length) return;
-  order = shuffle(selected);
-  currentIndex = 0; streak = 0; answeredCount = 0;
+  const proposed = mode === "study" ? selectStudyQuestions() : shuffle(selected);
+  if (!proposed.length) return;
+  gameMode = mode;
+  order = proposed;
+  currentIndex = 0; streak = 0; answeredCount = 0; locked = false;
+  $("screen-quiz").classList.toggle("is-study-mode", mode === "study");
+  $("game-mode-title").textContent = mode === "study" ? "📘 NRT / 10問学習モード" : "✈ NRT FLIGHT CHALLENGE";
+  $("score-primary-label").textContent = mode === "study" ? "✅ 正解数" : "🔥 連続正解";
+  $("score-secondary-label").textContent = mode === "study" ? "⭐ 難問" : "🏆 自己ベスト";
+  $("score-tertiary-label").textContent = mode === "study" ? "📖 進み具合" : "🧩 現在の問題";
+  $("milestone-toast").hidden = true;
+  if (milestoneTimeout) { clearTimeout(milestoneTimeout); milestoneTimeout = null; }
+  $("game-sparkles").replaceChildren();
   showScreen("quiz");
   renderQuestion();
-  updateComboPanel(0);
-  updateFlightBoard(0);
-  $("milestone-toast").hidden = true;
+  if (mode === "study") updateStudyPanel();
+  else { updateComboPanel(0); updateFlightBoard(0); }
 }
 function renderQuestion() {
   locked = false;
   const q = order[currentIndex];
-  $("score-streak").innerHTML = `${streak} <small>COMBO</small>`;
-  $("score-best").textContent = String(best);
+  paintScoreboard();
   $("score-position").textContent = `${currentIndex + 1} / ${order.length}`;
   $("question-category").textContent = q.category;
   const badge = $("difficulty-badge");
   if (badge) badge.hidden = q.difficulty !== "hard";
-  $("question-label").textContent = `QUESTION ${String(currentIndex + 1).padStart(2, "0")}`;
+  $("question-label").textContent = `${gameMode === "study" ? "STUDY" : "QUESTION"} ${String(currentIndex + 1).padStart(2, "0")}`;
   $("question-text").textContent = q.question;
   const percentage = Math.round((currentIndex / order.length) * 100);
   $("progress-fill").style.width = `${percentage}%`;
@@ -164,19 +205,30 @@ function choose(index) {
   const correct = index === correctChoicePosition;
   if (correct) {
     streak++;
-    if (streak > best) { best = streak; storeBest(best); }
-    celebrateCombo();
-    updateComboPanel(streak, true, false);
-    updateFlightBoard(streak);
-    burstSparkles(isMilestone(streak) ? 22 : 10);
-    playGameSound(isMilestone(streak) ? "milestone" : "correct");
-    if (isMilestone(streak)) showMilestone(streak);
+    if (gameMode === "challenge") {
+      if (streak > best) { best = streak; storeBest(best); }
+      celebrateCombo();
+      updateComboPanel(streak, true, false);
+      updateFlightBoard(streak);
+      burstSparkles(isMilestone(streak) ? 22 : 10);
+      playGameSound(isMilestone(streak) ? "milestone" : "correct");
+      if (isMilestone(streak)) showMilestone(streak);
+    } else {
+      updateStudyPanel(true);
+      burstSparkles(6);
+      playGameSound("correct");
+    }
   } else {
-    updateComboPanel(streak, true, true);
+    if (gameMode === "study") updateStudyPanel(false);
+    else updateComboPanel(streak, true, true);
     playGameSound("wrong");
   }
-  $("score-streak").innerHTML = `${streak} <small>COMBO</small>`;
-  $("score-best").textContent = String(best);
+  paintScoreboard();
+  if (gameMode === "study") {
+    const percentage = Math.round(((currentIndex + 1) / order.length) * 100);
+    $("progress-fill").style.width = `${percentage}%`;
+    $("progress-track").setAttribute("aria-valuenow", String(percentage));
+  }
   const elements = Array.from($("options").children);
   elements.forEach((button, i) => {
     button.disabled = true;
@@ -186,8 +238,8 @@ function choose(index) {
   });
   const stage = getComboStage(streak);
   $("feedback-title").innerHTML = correct
-    ? `✦ 正解！ ナイスフライト！ <strong>${stage.title}</strong>`
-    : `あと一歩！ 正解は ${LETTERS[correctChoicePosition]}：${q.choices[q.answer]}`;
+    ? gameMode === "study" ? "✅ 正解！ しっかり覚えよう！" : `✦ 正解！ ナイスフライト！ <strong>${stage.title}</strong>`
+    : `💡 正解は ${LETTERS[correctChoicePosition]}：${q.choices[q.answer]}`;
   $("feedback-explanation").textContent = q.explanation || "解説は準備中です。";
   const hasDetail = typeof q.detail === "string" && q.detail.trim().length > 0;
   $("deep-dive").hidden = !hasDetail;
@@ -207,17 +259,34 @@ function choose(index) {
   }
   $("feedback").classList.toggle("is-wrong", !correct);
   $("feedback").hidden = false;
-  $("next-button").textContent = (!correct || currentIndex === order.length - 1) ? "結果を見る →" : "次の問題へ →";
+  $("next-button").textContent = (currentIndex === order.length - 1 || (gameMode === "challenge" && !correct)) ? "結果を見る →" : "次の問題へ →";
   $("next-button").hidden = false;
 }
 function next() {
   if (!locked) return;
   const endedByMistake = Array.from($("options").children).some(el => el.classList.contains("is-wrong"));
-  if (endedByMistake || currentIndex === order.length - 1) { showResult(!endedByMistake); return; }
+  if ((gameMode === "challenge" && endedByMistake) || currentIndex === order.length - 1) { showResult(!endedByMistake); return; }
   currentIndex++;
   renderQuestion();
 }
 function showResult(completedAll) {
+  $("screen-result").classList.toggle("is-study-result", gameMode === "study");
+  $("result-score-label").textContent = gameMode === "study" ? "問正解 ／ 10問" : "問 連続正解";
+  $("result-best-caption").textContent = gameMode === "study" ? "★ 難問出題" : "自己ベスト";
+  $("result-total-caption").textContent = gameMode === "study" ? "挑戦した問題" : "挑戦した問題";
+  if (gameMode === "study") {
+    $("result-kicker").textContent = "10 QUESTIONS COMPLETE!";
+    $("result-title").textContent = "学習モード おつかれさま！";
+    $("result-message").textContent = `10問中${streak}問正解！ 解説を読んで、知識を増やしていこう。`;
+    $("result-award").textContent = "📘 10問の学習完了";
+    $("result-streak").textContent = String(streak);
+    $("result-best").textContent = String(STUDY_HARD_COUNT);
+    $("result-total").textContent = String(answeredCount);
+    $("retry-button").textContent = "別の10問を学習 →";
+    showScreen("result");
+    return;
+  }
+  $("retry-button").textContent = "もう一度挑戦 ↗";
   $("result-kicker").textContent = completedAll ? "ALL QUESTIONS CLEARED!" : "FLIGHT COMPLETE";
   $("result-title").textContent = completedAll ? "全問クリア！" : streak >= 10 ? "ミラクルフライト！" : streak >= 5 ? "素晴らしいフライト！" : "おつかれさま！";
   $("result-message").textContent = completedAll ? "すべての問題に正解しました。次は違うジャンルにも挑戦しよう！" : streak >= 5 ? "かなりいい感じ！ もう一度挑戦して自己ベスト更新を目指そう。" : "解説を読んで知識を増やし、次の記録を目指そう。";
