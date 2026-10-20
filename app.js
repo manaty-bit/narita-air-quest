@@ -1,12 +1,13 @@
 "use strict";
 
-/* NARITA AIR QUEST — アプリ本体。
-   通常、このファイルを編集する必要はありません。
-   問題は questions.js に追加してください。
-*/
+/* NARITA AIR QUEST — アプリ本体。 */
 const BEST_KEY = "narita-air-quest-best-v1";
 const ALL = "__all__";
 const LETTERS = ["A", "B", "C", "D"];
+let soundEnabled = false;
+let audioContext = null;
+let milestoneTimeout = null;
+
 const $ = (id) => document.getElementById(id);
 
 function validQuestion(q) {
@@ -24,11 +25,11 @@ let order = [], currentIndex = 0, streak = 0, answeredCount = 0, locked = false;
 let category = ALL, best = loadBest();
 
 function loadBest() { try { return Math.max(0, parseInt(localStorage.getItem(BEST_KEY) || "0", 10) || 0); } catch { return 0; } }
-function storeBest(v) { try { localStorage.setItem(BEST_KEY, String(v)); } catch { /* 保存できなくても遊べます */ } }
-function shuffle(items) { const arr = [...items]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i],arr[j]] = [arr[j],arr[i]]; } return arr; }
+function storeBest(v) { try { localStorage.setItem(BEST_KEY, String(v)); } catch { } }
+function shuffle(items) { const arr = [...items]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
 function showScreen(name) {
   for (const id of ["home", "quiz", "result"]) $("screen-" + id).classList.toggle("is-active", id === name);
-  window.scrollTo({top: 0, behavior: "auto"});
+  window.scrollTo({ top: 0, behavior: "auto" });
 }
 function updateHome() { $("home-count").textContent = String(bank.length); $("home-best").textContent = String(best); }
 function updateAvailable() {
@@ -36,19 +37,69 @@ function updateAvailable() {
   $("available-caption").textContent = `${n}問からランダムに出題 ／ 1問間違えたら終了 ／ 記録はこの端末だけに保存`;
   $("start-button").disabled = n === 0;
 }
+function getComboStage(value) {
+  if (value <= 0) return { cls: "is-ready", icon: "🛫", title: "さあ、テイクオフ！", message: "連続正解で、フライトメーターをのばそう！" };
+  if (value <= 2) return { cls: "is-low", icon: "😊", title: "ナイススタート！", message: `${value}コンボ達成！ この調子で次もいこう。` };
+  if (value <= 4) return { cls: "is-mid", icon: "🚀", title: "ぐんぐん上昇中！", message: `${value}コンボ！ もう空の上だ。` };
+  if (value <= 7) return { cls: "is-high", icon: "☁️", title: "巡航モード！", message: `${value}コンボ！ 雲の上まで来たね。` };
+  return { cls: "is-top", icon: "🏆", title: "ミラクルフライト！", message: `${value}コンボ！ 最高記録をめざそう！` };
+}
+function updateComboPanel(value, pop = false, wrong = false) {
+  const panel = $("combo-panel");
+  const title = $("combo-title");
+  const message = $("combo-message");
+  const icon = $("combo-icon");
+  panel.classList.remove("is-ready", "is-low", "is-mid", "is-high", "is-top", "is-wrong", "is-pop");
+  if (wrong) {
+    panel.classList.add("is-wrong");
+    icon.textContent = "🛬";
+    title.textContent = value > 0 ? `${value}コンボでストップ！` : "また挑戦しよう！";
+    message.textContent = "解説を読めば、次はもっと遠くまで飛べる！";
+  } else {
+    const stage = getComboStage(value);
+    panel.classList.add(stage.cls);
+    icon.textContent = stage.icon;
+    title.textContent = stage.title;
+    message.textContent = stage.message;
+  }
+  if (pop) {
+    panel.classList.add("is-pop");
+    setTimeout(() => panel.classList.remove("is-pop"), 420);
+  }
+}
+function celebrateCombo() {
+  const target = $("score-streak");
+  target.classList.remove("is-celebrating");
+  void target.offsetWidth;
+  target.classList.add("is-celebrating");
+}
 function init() {
   updateHome();
   const categories = [...new Set(bank.map(q => q.category))];
-  for (const name of categories) { const opt = document.createElement("option"); opt.value = name; opt.textContent = name; $("category-select").append(opt); }
+  for (const name of categories) {
+    const opt = document.createElement("option");
+    opt.value = name; opt.textContent = name; $("category-select").append(opt);
+  }
   $("category-select").addEventListener("change", e => { category = e.target.value; updateAvailable(); });
   $("start-button").addEventListener("click", start);
-  $("quit-button").addEventListener("click", () => { if (!locked && answeredCount > 0 && !window.confirm("チャレンジを終了してタイトルに戻りますか？")) return; updateHome(); showScreen("home"); });
+  const toggle = $("sound-toggle");
+  toggle.addEventListener("click", () => {
+    soundEnabled = !soundEnabled;
+    toggle.textContent = soundEnabled ? "🔊 音ON" : "🔇 音OFF";
+    toggle.setAttribute("aria-pressed", String(soundEnabled));
+    toggle.setAttribute("aria-label", soundEnabled ? "効果音をオフにする" : "効果音をオンにする");
+    if (soundEnabled) playGameSound("toggle");
+  });
+  $("quit-button").addEventListener("click", () => {
+    if (!locked && answeredCount > 0 && !window.confirm("チャレンジを終了してタイトルに戻りますか？")) return;
+    updateHome(); showScreen("home");
+  });
   $("next-button").addEventListener("click", next);
   $("retry-button").addEventListener("click", start);
   $("return-button").addEventListener("click", () => { updateHome(); showScreen("home"); });
   document.addEventListener("keydown", (event) => {
     if (!$("screen-quiz").classList.contains("is-active") || event.altKey || event.ctrlKey || event.metaKey) return;
-    if (!locked && /^[1-4]$/.test(event.key)) { event.preventDefault(); choose(Number(event.key)-1); }
+    if (!locked && /^[1-4]$/.test(event.key)) { event.preventDefault(); choose(Number(event.key) - 1); }
     else if (locked && event.key === "Enter") { event.preventDefault(); next(); }
   });
   if (raw.length && bank.length !== raw.length) console.warn(`無効または重複した問題が ${raw.length - bank.length} 問あり、除外しました。`);
@@ -59,17 +110,22 @@ function start() {
   if (!selected.length) return;
   order = shuffle(selected);
   currentIndex = 0; streak = 0; answeredCount = 0;
-  showScreen("quiz"); renderQuestion();
+  showScreen("quiz");
+  renderQuestion();
+  updateComboPanel(0);
+  updateFlightBoard(0);
+  $("milestone-toast").hidden = true;
 }
 function renderQuestion() {
   locked = false;
   const q = order[currentIndex];
   $("score-streak").innerHTML = `${streak} <small>COMBO</small>`;
   $("score-best").textContent = String(best);
-  $("score-position").textContent = `${currentIndex+1} / ${order.length}`;
+  $("score-position").textContent = `${currentIndex + 1} / ${order.length}`;
   $("question-category").textContent = q.category;
-  $("difficulty-badge").hidden = q.difficulty !== "hard";
-  $("question-label").textContent = `QUESTION ${String(currentIndex+1).padStart(2,"0")}`;
+  const badge = $("difficulty-badge");
+  if (badge) badge.hidden = q.difficulty !== "hard";
+  $("question-label").textContent = `QUESTION ${String(currentIndex + 1).padStart(2, "0")}`;
   $("question-text").textContent = q.question;
   const percentage = Math.round((currentIndex / order.length) * 100);
   $("progress-fill").style.width = `${percentage}%`;
@@ -77,21 +133,40 @@ function renderQuestion() {
   $("feedback").hidden = true;
   $("feedback").classList.remove("is-wrong");
   $("next-button").hidden = true;
-  const holder = $("options"); holder.replaceChildren();
+  const holder = $("options");
+  holder.replaceChildren();
   q.choices.forEach((option, i) => {
     const b = document.createElement("button");
-    b.type = "button"; b.className = "option"; b.dataset.index = String(i);
-    const label = document.createElement("span"); label.className = "choice-label"; label.textContent = LETTERS[i];
-    const txt = document.createElement("span"); txt.textContent = option;
-    b.append(label,txt);
-    b.addEventListener("click", () => choose(i)); holder.append(b);
+    b.type = "button";
+    b.className = "option";
+    b.dataset.index = String(i);
+    const label = document.createElement("span");
+    label.className = "choice-label";
+    label.textContent = LETTERS[i];
+    const txt = document.createElement("span");
+    txt.textContent = option;
+    b.append(label, txt);
+    b.addEventListener("click", () => choose(i));
+    holder.append(b);
   });
 }
 function choose(index) {
   if (locked) return;
   locked = true; answeredCount++;
   const q = order[currentIndex]; const correct = index === q.answer;
-  if (correct) { streak++; if (streak > best) { best = streak; storeBest(best); } }
+  if (correct) {
+    streak++;
+    if (streak > best) { best = streak; storeBest(best); }
+    celebrateCombo();
+    updateComboPanel(streak, true, false);
+    updateFlightBoard(streak);
+    burstSparkles(isMilestone(streak) ? 22 : 10);
+    playGameSound(isMilestone(streak) ? "milestone" : "correct");
+    if (isMilestone(streak)) showMilestone(streak);
+  } else {
+    updateComboPanel(streak, true, true);
+    playGameSound("wrong");
+  }
   $("score-streak").innerHTML = `${streak} <small>COMBO</small>`;
   $("score-best").textContent = String(best);
   const elements = Array.from($("options").children);
@@ -101,7 +176,10 @@ function choose(index) {
     else if (i === index) button.classList.add("is-wrong");
     else button.classList.add("is-muted");
   });
-  $("feedback-title").textContent = correct ? "✦ 正解！ ナイスフライト！" : `あと一歩！ 正解は ${LETTERS[q.answer]}`;
+  const stage = getComboStage(streak);
+  $("feedback-title").innerHTML = correct
+    ? `✦ 正解！ ナイスフライト！ <strong>${stage.title}</strong>`
+    : `あと一歩！ 正解は ${LETTERS[q.answer]}`;
   $("feedback-explanation").textContent = q.explanation || "解説は準備中です。";
   $("feedback").classList.toggle("is-wrong", !correct);
   $("feedback").hidden = false;
@@ -117,12 +195,95 @@ function next() {
 }
 function showResult(completedAll) {
   $("result-kicker").textContent = completedAll ? "ALL QUESTIONS CLEARED!" : "FLIGHT COMPLETE";
-  $("result-title").textContent = completedAll ? "全問クリア！" : streak >= 5 ? "素晴らしいフライト！" : "おつかれさま！";
-  $("result-message").textContent = completedAll ? "すべての問題に正解しました。次は違うジャンルにも挑戦しよう！" : "解説を読んで知識を増やし、次の記録を目指そう。";
+  $("result-title").textContent = completedAll ? "全問クリア！" : streak >= 10 ? "ミラクルフライト！" : streak >= 5 ? "素晴らしいフライト！" : "おつかれさま！";
+  $("result-message").textContent = completedAll ? "すべての問題に正解しました。次は違うジャンルにも挑戦しよう！" : streak >= 5 ? "かなりいい感じ！ もう一度挑戦して自己ベスト更新を目指そう。" : "解説を読んで知識を増やし、次の記録を目指そう。";
+  $("result-award").textContent = getAward(streak).emoji + " " + getAward(streak).name;
   $("result-streak").textContent = String(streak);
   $("result-best").textContent = String(best);
   $("result-total").textContent = String(answeredCount);
   showScreen("result");
 }
+
+// ★ コンボを「空の称号」として見える化。正解数と称号は端末内だけで扱います。
+const AWARDS = [
+  { at: 0, name: "出発準備中", emoji: "🛫" },
+  { at: 1, name: "はじめての離陸", emoji: "✨" },
+  { at: 3, name: "空のルーキー", emoji: "☁️" },
+  { at: 5, name: "スカイパイロット", emoji: "✈️" },
+  { at: 10, name: "エースパイロット", emoji: "🚀" },
+  { at: 20, name: "スカイマスター", emoji: "🏆" }
+];
+function getAward(n) { return AWARDS.slice().reverse().find(a => n >= a.at) || AWARDS[0]; }
+function isMilestone(n) { return n === 3 || n === 5 || n === 10 || n === 20; }
+function updateFlightBoard(n) {
+  const pct = Math.max(2, Math.min(95, (n / 20) * 95));
+  $("flight-track-fill").style.width = pct + "%";
+  $("flight-plane").style.left = pct + "%";
+  const award = getAward(n);
+  $("flight-status").textContent = `${award.emoji} ${award.name}`;
+  const nextAward = AWARDS.find(a => a.at > n);
+  $("flight-distance").textContent = nextAward
+    ? `あと${nextAward.at - n}問で「${nextAward.name}」！`
+    : "称号コンプリート！どこまで飛べる？";
+  document.querySelectorAll(".flight-checkpoint").forEach((checkpoint, i) => {
+    const required = [3,5,10,20][i];
+    checkpoint.classList.toggle("is-cleared", n >= required);
+  });
+}
+function showMilestone(n) {
+  const toast = $("milestone-toast");
+  const award = getAward(n);
+  $("milestone-toast-emoji").textContent = award.emoji;
+  $("milestone-toast-title").textContent = `${n} COMBO！ LEVEL UP！`;
+  $("milestone-toast-message").textContent = `新しい称号「${award.name}」をゲット！`;
+  toast.hidden = false;
+  toast.classList.remove("is-appearing");
+  void toast.offsetWidth;
+  toast.classList.add("is-appearing");
+  if (milestoneTimeout) clearTimeout(milestoneTimeout);
+  milestoneTimeout = setTimeout(() => { toast.hidden = true; }, 2500);
+}
+function burstSparkles(amount) {
+  const holder = $("game-sparkles");
+  const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) return;
+  holder.replaceChildren();
+  const colors = ["#ffc857","#5bd4ee","#74dfb9","#ff89a4","#8fa9ff"];
+  for (let i = 0; i < amount; i++) {
+    const dot = document.createElement("span");
+    dot.className = "sparkle-dot";
+    dot.style.setProperty("--dx", `${Math.round((Math.random() - .5) * 550)}px`);
+    dot.style.setProperty("--dy", `${Math.round((Math.random() - .8) * 220)}px`);
+    dot.style.setProperty("--rot", `${Math.round(Math.random() * 540)}deg`);
+    dot.style.setProperty("--color", colors[i % colors.length]);
+    dot.style.animationDelay = `${i * 12}ms`;
+    holder.append(dot);
+  }
+  setTimeout(() => holder.replaceChildren(), 1150);
+}
+function playGameSound(kind) {
+  if (!soundEnabled) return;
+  try {
+    const Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return;
+    if (!audioContext) audioContext = new Ctor();
+    if (audioContext.state === "suspended") audioContext.resume();
+    const tones = kind === "wrong" ? [300,240]
+      : kind === "milestone" ? [523,659,784,1047] : kind === "toggle" ? [587] : [659,880];
+    tones.forEach((freq,i) => {
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      const t = audioContext.currentTime + i * 0.075;
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq,t);
+      gain.gain.setValueAtTime(0.0001,t);
+      gain.gain.exponentialRampToValueAtTime(0.075,t+0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001,t+0.17);
+      osc.connect(gain).connect(audioContext.destination);
+      osc.start(t); osc.stop(t+0.19);
+    });
+  } catch (err) { /* 音が使えない環境でもクイズは続行 */ }
+}
+
 if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
 else init();
