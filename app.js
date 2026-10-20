@@ -6,6 +6,7 @@ const ALL = "__all__";
 const LETTERS = ["A", "B", "C", "D"];
 const STUDY_TOTAL = 10;
 const STUDY_HARD_COUNT = 4;
+const REVIEW_KEY = "narita-air-quest-review-v1"; // 保存内容は間違えた問題IDのみ
 let gameMode = "challenge"; // "challenge" | "study"
 let soundEnabled = false;
 let audioContext = null;
@@ -27,15 +28,42 @@ const bank = questions.filter(q => { if (ids.has(q.id)) return false; ids.add(q.
 let order = [], currentIndex = 0, streak = 0, answeredCount = 0, locked = false;
 let displayedChoices = []; // [{text, originalIndex}] - original answer keys never change
 let category = ALL, best = loadBest();
+const reviewIds = loadReviewIds();
+let studyReviewAtStart = new Set();
 
 function loadBest() { try { return Math.max(0, parseInt(localStorage.getItem(BEST_KEY) || "0", 10) || 0); } catch { return 0; } }
 function storeBest(v) { try { localStorage.setItem(BEST_KEY, String(v)); } catch { } }
+// 同じブラウザの端末内に問題IDのみ保存。個人名や回答・正解データは記録しない。
+function loadReviewIds() {
+  try {
+    const ids = JSON.parse(localStorage.getItem(REVIEW_KEY) || "[]");
+    const known = new Set(bank.map(q => q.id));
+    if (!Array.isArray(ids)) return new Set();
+    return new Set(ids.filter(id => typeof id === "string" && known.has(id)));
+  } catch { return new Set(); }
+}
+function saveReviewIds() {
+  try { localStorage.setItem(REVIEW_KEY, JSON.stringify([...reviewIds])); } catch { }
+}
+function updateReviewSummary() {
+  $("review-count").textContent = `🔁 復習候補：${reviewIds.size}問`;
+  $("review-clear-button").hidden = reviewIds.size === 0;
+}
+function pickStudyGroup(pool, count) {
+  const reviewing = shuffle(pool.filter(q => reviewIds.has(q.id)));
+  const others = shuffle(pool.filter(q => !reviewIds.has(q.id)));
+  return [...reviewing, ...others].slice(0, count);
+}
 function shuffle(items) { const arr = [...items]; for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; } return arr; }
 function showScreen(name) {
   for (const id of ["home", "quiz", "result"]) $("screen-" + id).classList.toggle("is-active", id === name);
   window.scrollTo({ top: 0, behavior: "auto" });
 }
-function updateHome() { $("home-count").textContent = String(bank.length); $("home-best").textContent = String(best); }
+function updateHome() {
+  $("home-count").textContent = String(bank.length);
+  $("home-best").textContent = String(best);
+  updateReviewSummary();
+}
 function updateAvailable() {
   const n = category === ALL ? bank.length : bank.filter(q => q.category === category).length;
   $("available-caption").textContent = `連続正解チャレンジ：${n}問からランダムに出題 ／ 1問間違えたら終了`;
@@ -47,8 +75,8 @@ function updateAvailable() {
 // 学習モード：全ジャンルから毎回10問、難問4問・通常6問。
 // 最初は通常問題でウォームアップし、5・7・9・10問目に難問を配置する。
 function selectStudyQuestions() {
-  const hard = shuffle(bank.filter(q => q.difficulty === "hard")).slice(0, STUDY_HARD_COUNT);
-  const normal = shuffle(bank.filter(q => q.difficulty !== "hard")).slice(0, STUDY_TOTAL - STUDY_HARD_COUNT);
+  const hard = pickStudyGroup(bank.filter(q => q.difficulty === "hard"), STUDY_HARD_COUNT);
+  const normal = pickStudyGroup(bank.filter(q => q.difficulty !== "hard"), STUDY_TOTAL - STUDY_HARD_COUNT);
   if (hard.length !== STUDY_HARD_COUNT || normal.length !== STUDY_TOTAL - STUDY_HARD_COUNT) return [];
   return [
     normal[0], normal[1], normal[2], normal[3], hard[0],
@@ -144,6 +172,13 @@ function init() {
   $("category-select").addEventListener("change", e => { category = e.target.value; updateAvailable(); });
   $("start-button").addEventListener("click", () => start("challenge"));
   $("study-button").addEventListener("click", () => start("study"));
+  $("review-clear-button").addEventListener("click", () => {
+    if (!reviewIds.size) return;
+    if (!window.confirm(`復習候補${reviewIds.size}問の記録を、この端末から消しますか？`)) return;
+    reviewIds.clear();
+    saveReviewIds();
+    updateReviewSummary();
+  });
   const toggle = $("sound-toggle");
   toggle.addEventListener("click", () => {
     soundEnabled = !soundEnabled;
@@ -174,6 +209,7 @@ function start(mode = "challenge") {
   const proposed = mode === "study" ? selectStudyQuestions() : arrangeChallengeQuestions(selected);
   if (!proposed.length) return;
   gameMode = mode;
+  studyReviewAtStart = mode === "study" ? new Set(reviewIds) : new Set();
   order = proposed;
   currentIndex = 0; streak = 0; answeredCount = 0; locked = false;
   $("screen-quiz").classList.toggle("is-study-mode", mode === "study");
@@ -197,6 +233,7 @@ function renderQuestion() {
   $("question-category").textContent = q.category;
   const badge = $("difficulty-badge");
   if (badge) badge.hidden = q.difficulty !== "hard";
+  $("study-review-badge").hidden = !(gameMode === "study" && studyReviewAtStart.has(q.id));
   $("question-label").textContent = `${gameMode === "study" ? "STUDY" : "QUESTION"} ${String(currentIndex + 1).padStart(2, "0")}`;
   $("question-text").textContent = q.question;
   const percentage = Math.round((currentIndex / order.length) * 100);
@@ -233,6 +270,11 @@ function choose(index) {
   const q = order[currentIndex];
   const correctChoicePosition = displayedChoices.findIndex(c => c.originalIndex === q.answer);
   const correct = index === correctChoicePosition;
+  if (gameMode === "study") {
+    if (correct) reviewIds.delete(q.id);
+    else reviewIds.add(q.id);
+    saveReviewIds();
+  }
   if (correct) {
     streak++;
     if (gameMode === "challenge") {
@@ -267,9 +309,16 @@ function choose(index) {
     else button.classList.add("is-muted");
   });
   const stage = getComboStage(streak);
-  $("feedback-title").innerHTML = correct
-    ? gameMode === "study" ? "✅ 正解！ しっかり覚えよう！" : `✦ 正解！ ナイスフライト！ <strong>${stage.title}</strong>`
-    : `💡 正解は ${LETTERS[correctChoicePosition]}：${q.choices[q.answer]}`;
+  const feedbackTitle = $("feedback-title");
+  if (correct && gameMode === "challenge") {
+    feedbackTitle.innerHTML = `✦ 正解！ ナイスフライト！ <strong>${stage.title}</strong>`;
+  } else if (correct) {
+    feedbackTitle.textContent = studyReviewAtStart.has(q.id)
+      ? "🎉 復習クリア！ 正しく覚えられたね！"
+      : "✅ 正解！ しっかり覚えよう！";
+  } else {
+    feedbackTitle.textContent = `💡 正解は ${LETTERS[correctChoicePosition]}：${q.choices[q.answer]}`;
+  }
   $("feedback-explanation").textContent = q.explanation || "解説は準備中です。";
   const hasDetail = typeof q.detail === "string" && q.detail.trim().length > 0;
   $("deep-dive").hidden = !hasDetail;
@@ -307,7 +356,7 @@ function showResult(completedAll) {
   if (gameMode === "study") {
     $("result-kicker").textContent = "10 QUESTIONS COMPLETE!";
     $("result-title").textContent = "学習モード おつかれさま！";
-    $("result-message").textContent = `10問中${streak}問正解！ 解説を読んで、知識を増やしていこう。`;
+    $("result-message").textContent = `10問中${streak}問正解！ 復習候補は現在${reviewIds.size}問。次回の学習モードで優先して出題されるよ。`;
     $("result-award").textContent = "📘 10問の学習完了";
     $("result-streak").textContent = String(streak);
     $("result-best").textContent = String(STUDY_HARD_COUNT);
