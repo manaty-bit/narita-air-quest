@@ -30,8 +30,8 @@
       <div class="hero">
         <div class="hero-copy">
           <div class="eyebrow"><span class="pulse-dot"></span> 成田空港 宿泊研修 SPECIAL QUIZ</div>
-          <h1 id="home-title">知識を積んで、<br><span>どこまでも飛べ。</span></h1>
-          <p class="hero-lead">飛行機の不思議から、成田空港の歴史、空港の未来まで。<br>4択クイズで、あなたの連続正解記録に挑戦しよう！</p>
+          <h1 id="home-title">正解を重ねて、<br><span>空のエースになろう！</span></h1>
+          <p class="hero-lead">飛行機の不思議から、成田空港の歴史、空港の未来まで。<br>4択クイズでコンボをつなごう！ 正解するたび飛行機が進み、称号が増えるよ。</p>
           <div class="hero-statrow">
             <div class="stat-inline"><strong id="home-count">—</strong><span>登録問題数</span></div>
             <div class="stat-inline"><strong id="home-best">0</strong><span>自己ベスト</span></div>
@@ -60,21 +60,39 @@
       </div>
 
       <div class="controls-card">
-        <div class="controls-heading"><span class="mini-icon">✦</span><div><h2>フライトの準備</h2><p>好きなジャンルを選んで、クイズに出発しよう。</p></div></div>
-        <div class="launch-row"><div class="input-holder"><label for="category-select">出題ジャンル</label><select id="category-select" aria-label="出題ジャンル"><option value="__all__">すべてのジャンル</option></select></div><button id="start-button" class="btn btn-main" type="button">チャレンジ開始 <span aria-hidden="true">↗</span></button></div>
+        <div class="controls-heading"><span class="mini-icon">✦</span><div><h2>フライトのじゅんび</h2><p>好きなジャンルを選んで、わくわくクイズに出発しよう。</p></div></div>
+        <div class="launch-row"><div class="input-holder"><label for="category-select">出題ジャンル</label><select id="category-select" aria-label="出題ジャンル"><option value="__all__">すべてのジャンル</option></select></div><button id="start-button" class="btn btn-main" type="button">テイクオフ！ <span aria-hidden="true">✈</span></button></div>
         <p class="small-note" id="available-caption">すべての問題からランダムに出題します。</p>
       </div>
       <div class="info-grid">
-        <article><span class="info-num">01</span><h3>4択から選ぶ</h3><p>答えだと思う選択肢をタップ。落ち着いて考えよう。</p></article>
-        <article><span class="info-num">02</span><h3>正解をつなぐ</h3><p>当たったら次の問題へ。何問続けられるかな？</p></article>
-        <article><span class="info-num">03</span><h3>間違えても学ぶ</h3><p>1問間違えたら終了。解説を読んで再挑戦！</p></article>
+        <article><span class="info-num">01</span><h3>4たくからえらぶ</h3><p>答えだと思う選択肢をタップ。落ち着いて考えよう。</p></article>
+        <article><span class="info-num">02</span><h3>正解をつなげる</h3><p>当たったら次の問題へ。何問続けられるかな？</p></article>
+        <article><span class="info-num">03</span><h3>まちがえても学べる</h3><p>1問間違えたら終了。解説を読んで再挑戦！</p></article>
       </div>
     </section>
 
     <section id="screen-quiz" class="screen" aria-labelledby="question-text">
-      <div class="game-top"><button id="quit-button" class="text-button" type="button">← タイトルに戻る</button><span class="game-mini-title">NARITA AIR QUEST / CHALLENGE</span></div>
-      <div class="score-strip"><div class="score-item"><span>連続正解</span><strong id="score-streak">0 <small>COMBO</small></strong></div><div class="score-item"><span>自己ベスト</span><strong id="score-best">0</strong></div><div class="score-item"><span>現在の問題</span><strong id="score-position">1 / 6</strong></div></div>
+      <div class="game-top"><button id="quit-button" class="text-button" type="button">← タイトルに戻る</button><div class="game-top-actions"><span class="game-mini-title">NRT / FLIGHT CHALLENGE</span><button id="sound-toggle" type="button" class="sound-toggle" aria-pressed="false" aria-label="効果音をオンにする">🔇 音OFF</button></div></div>
+      <div class="score-strip"><div class="score-item score-item-combo"><span>連続正解</span><strong id="score-streak">0 <small>COMBO</small></strong></div><div class="score-item"><span>自己ベスト</span><strong id="score-best">0</strong></div><div class="score-item"><span>現在の問題</span><strong id="score-position">1 / 6</strong></div></div>
+      <div id="combo-panel" class="combo-panel" aria-live="polite">
+        <div id="combo-icon" class="combo-icon" aria-hidden="true">🛫</div>
+        <div class="combo-copy"><p id="combo-title">さあ、テイクオフ！</p><p id="combo-message">連続正解で、フライトメーターをのばそう！</p></div>
+      </div>
+      <section class="flight-board" aria-label="連続正解フライトメーター">
+        <div class="flight-board-header"><span>✈ FLIGHT LEVEL</span><span id="flight-status">出発準備中</span></div>
+        <div class="flight-track" id="flight-track" aria-label="次の称号までの進み具合">
+          <div class="flight-track-fill" id="flight-track-fill"></div>
+          <div id="flight-plane" class="flight-plane" aria-hidden="true">✈</div>
+          <div class="flight-checkpoint" style="left:15%"><span>3</span></div>
+          <div class="flight-checkpoint" style="left:30%"><span>5</span></div>
+          <div class="flight-checkpoint" style="left:55%"><span>10</span></div>
+          <div class="flight-checkpoint" style="left:95%"><span>20</span></div>
+        </div>
+        <div class="flight-board-footer"><span>🛫 TAKE OFF</span><strong id="flight-distance">あと3問で「空のルーキー」！</strong><span>🏆 SKY MASTER</span></div>
+      </section>
       <div class="progress-track" role="progressbar" aria-label="全問題の進捗" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+      <div id="milestone-toast" class="milestone-toast" role="status" aria-live="polite" hidden><span id="milestone-toast-emoji">🏆</span><div><strong id="milestone-toast-title"></strong><small id="milestone-toast-message"></small></div></div>
+      <div id="game-sparkles" class="game-sparkles" aria-hidden="true"></div>
       <article class="question-card">
         <div class="question-meta"><span class="question-badges"><span id="question-category" class="category-pill">航空雑学</span><span id="difficulty-badge" class="difficulty-badge" hidden>★ 難問</span></span><span id="question-label" class="question-index">QUESTION 01</span></div>
         <h2 id="question-text">ここに問題が表示されます</h2>
@@ -84,14 +102,14 @@
           <div id="feedback-title" class="feedback-title"></div>
           <p id="feedback-explanation"></p>
         </div>
-        <button id="next-button" type="button" class="btn btn-main next-button" hidden>次の問題へ →</button>
+        <button id="next-button" type="button" class="btn btn-main next-button" hidden>次のステージへ →</button>
       </article>
       <p class="key-hint">パソコンならキーボードの <kbd>1</kbd>〜<kbd>4</kbd> でも解答できます。</p>
     </section>
 
     <section id="screen-result" class="screen" aria-labelledby="result-title">
       <div class="result-card"><div class="result-top-icon" aria-hidden="true">✈</div><p class="result-kicker" id="result-kicker">FLIGHT COMPLETE</p><h2 id="result-title">おつかれさま！</h2><p id="result-message">今回の記録はこちら。</p>
-        <div class="result-score"><strong id="result-streak">0</strong><span>問 連続正解</span></div>
+        <div class="result-award" id="result-award" aria-live="polite">🛫 はじめてのフライト</div><div class="result-score"><strong id="result-streak">0</strong><span>問 連続正解</span></div>
         <div class="result-mini-stats"><span>自己ベスト <b id="result-best">0</b> 問</span><span>挑戦した問題 <b id="result-total">1</b> 問</span></div>
         <div class="result-actions"><button id="retry-button" class="btn btn-main" type="button">もう一度挑戦 ↗</button><button id="return-button" class="btn btn-secondary" type="button">トップに戻る</button></div>
       </div>
