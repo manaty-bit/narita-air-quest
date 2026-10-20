@@ -1,5 +1,5 @@
-/* NARITA AIR QUEST — 生徒案39問＋生徒案を再調査した13問＋教員作成18問。
-  2026年度成田空港事前学習。各問に出典URLを記録。生徒の個人名は収録しません。
+/* NARITA AIR QUEST — 生徒案39問＋再作問13問＋教員案18問。2026年度の事前学習用。
+ 個人名は未収録。出典は各問題の source を参照。
 */
 window.QUIZ_QUESTIONS = [
   {
@@ -158,7 +158,7 @@ window.QUIZ_QUESTIONS = [
   },
   {
     "id": "NQ012",
-    "category": "成田空港の歴史",
+    "category": "空港の仕事・物流",
     "question": "2026年のSKYTRAX「世界で最も空港スタッフのサービスがよい空港」部門で、成田空港は何位？",
     "choices": [
       "世界1位",
@@ -354,7 +354,7 @@ window.QUIZ_QUESTIONS = [
   },
   {
     "id": "NQ026",
-    "category": "成田空港の歴史",
+    "category": "空港の仕事・物流",
     "question": "飛行機の「格納庫」が果たす役割として最も適切なのは？",
     "choices": [
       "飛行機を保管し、点検や整備を行う",
@@ -672,7 +672,7 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 0,
     "explanation": "成田空港の2025年の運用統計には国内線の発着回数が計上されている。",
-    "source": "https://www.narita-airport.jp/files/45c57ccf381baa1318566ac0d947415811be9eb1de512008fcdf5934ac148d91"
+    "source": "https://www.narita-airport.jp/ja/company/airport-operation/operation/"
   },
   {
     "id": "NQ049",
@@ -728,7 +728,7 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 2,
     "explanation": "2025年の年間発着回数は253,586回。365日で割ると約695回なので約700回。",
-    "source": "https://www.narita-airport.jp/files/45c57ccf381baa1318566ac0d947415811be9eb1de512008fcdf5934ac148d91"
+    "source": "https://www.narita-airport.jp/ja/company/airport-operation/operation/"
   },
   {
     "id": "NQ053",
@@ -966,7 +966,7 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 0,
     "explanation": "廃食油などを原料とするSAFの利用が進んでいる。",
-    "source": "https://www.jogmec.go.jp/about/publish/jogmec-news-plus/plus_vol15.html"
+    "source": "https://www.narita-airport.jp/files/fdd41f86eaf984dcd12767efe2b4022b284821788b0eb317c88859034b365357"
   },
   {
     "id": "NQ070",
