@@ -281,3 +281,7 @@ kbd{display:inline-block;border:1px solid #cfe0e7;border-bottom-width:3px;border
   .site-footer{padding:20px}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+/* 難問表示：派手すぎない琥珀色の目印 */
+.question-badges{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.difficulty-badge{display:inline-flex;align-items:center;white-space:nowrap;background:#fff2cd;color:#8f6300;border:1px solid #f2cf78;border-radius:999px;padding:9px 13px;font-size:11px;font-weight:950;box-shadow:0 2px 8px rgba(165,114,15,.08)}
+@media(max-width:640px){.question-meta{align-items:flex-start}.question-index{padding-top:9px}.difficulty-badge{padding:8px 10px}}
