@@ -86,6 +86,11 @@ function localizeGame(){
      if(uiLanguage==="en"){
        $("combo-title").textContent=!locked?phase+"! "+(currentIndex+1)+"/10":$("feedback").classList.contains("is-wrong")?"Learn from this one!":"Correct! "+streak+"/10";
        $("combo-message").textContent="Mistakes are part of learning. Keep going!";
+     } else {
+       const position=currentIndex+1;
+       const phase=position<=4?"ウォームアップ":position<=8?"ステップアップ":"ファイナルチャレンジ";
+       $("combo-title").textContent=!locked?phase+"！ "+position+"/10問":$("feedback").classList.contains("is-wrong")?"解説を読んで覚えよう！":"正解！ 現在"+streak+"問正解";
+       $("combo-message").textContent="間違えても次に進めるよ。";
      }
    }else{
      const stage=getComboStage(streak),award=getAward(streak),awardIndex=AWARDS.indexOf(award);
@@ -95,6 +100,9 @@ function localizeGame(){
      if(uiLanguage==="en"){
        $("combo-title").textContent=!locked?(streak?streak+" in a row!":"Ready for takeoff!"):$("feedback").classList.contains("is-wrong")?"Flight complete!":streak+" in a row!";
        $("combo-message").textContent="Keep your streak going!";
+     } else {
+       $("combo-title").textContent=!locked?stage.title:$("feedback").classList.contains("is-wrong")?(streak>0?streak+"コンボでストップ！":"また挑戦しよう！"):stage.title;
+       $("combo-message").textContent=stage.message;
      }
    }
    if(locked){
