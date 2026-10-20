@@ -661,3 +661,8 @@ body:has(.compact-quest-v3.is-active) .brand small{font-size:9px}
 .compact-quest-v3 .quiz-illustration figcaption{font-size:12px;font-weight:750;color:#567d8e;padding:5px 12px 7px;background:#f5fcff;text-align:center}
 .compact-quest-v3 .quiz-illustration[hidden]{display:none!important}
 @media(max-width:760px){.compact-quest-v3 .quiz-illustration{margin:7px 0 9px}.compact-quest-v3 .quiz-illustration img{max-height:160px}.compact-quest-v3 .quiz-illustration figcaption{font-size:11px}}
+
+/* Language switch: compact even on Chromebook and phones. */
+.language-toggle{border:2px solid #86d4db;background:#fff;border-radius:999px;color:#145d7d;padding:8px 14px;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap;min-width:82px}
+.language-toggle:hover{background:#e9fbff}.language-toggle:focus-visible{outline:3px solid #f5c15b;outline-offset:2px}
+@media(max-width:600px){.language-toggle{font-size:12px;padding:7px 10px;min-width:68px}.nav-tag{display:none}}
