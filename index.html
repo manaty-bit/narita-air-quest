@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#8fe2d2">
   <meta name="description" content="成田空港の秘密に挑戦！4択問題で連続正解記録を目指す学習クイズアプリ。">
   <title>NARITA AIR QUEST｜連続正解チャレンジ</title>
-  <link rel="stylesheet" href="style.css?v=study6">
+  <link rel="stylesheet" href="style.css?v=review8">
   <script src="questions.js" defer></script>
-  <script src="app.js?v=stage7" defer></script>
+  <script src="app.js?v=review8" defer></script>
 </head>
 <body>
   <div class="ambient ambient-1" aria-hidden="true"></div>
@@ -69,6 +69,11 @@
           </div>
           <button id="study-button" type="button" class="btn btn-secondary study-start">10問を学ぶ →</button>
         </div>
+        <div class="review-summary" aria-live="polite">
+          <span id="review-count">🔁 復習候補：0問</span>
+          <span class="review-summary-description">間違えた問題は次回の学習で優先出題</span>
+          <button id="review-clear-button" class="review-clear-button" type="button" hidden>履歴を消す</button>
+        </div>
         <p class="small-note" id="available-caption">すべての問題からランダムに出題します。</p>
       </div>
       <div class="info-grid">
@@ -115,6 +120,7 @@
             <span class="question-badges">
               <span id="question-category" class="category-pill">航空雑学</span>
               <span id="difficulty-badge" class="difficulty-badge" hidden>★ 難問</span>
+              <span id="study-review-badge" class="review-badge" hidden>🔁 復習</span>
             </span>
             <span id="question-label" class="question-index">QUESTION 01</span>
           </div>
