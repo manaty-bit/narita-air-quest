@@ -1,7 +1,4 @@
-/* NARITA AIR QUEST — 2026年度成田空港事前学習クイズ。全94問。
- * 間違い選択肢を再校正。正解位置と本文解説は保持。
- * 難問は difficulty:"hard"。detail は回答後の深掘り。source は出典。
- */
+/* NARITA AIR QUEST — 94問。図解付きは10問。 */
 window.QUIZ_QUESTIONS = [
   {
     "id": "NQ001",
@@ -115,9 +112,9 @@ window.QUIZ_QUESTIONS = [
     "source": "https://www.airbus.com/en/newsroom/stories/2022-06-how-do-aircraft-windows-work",
     "difficulty": "hard",
     "detail": "客室の窓は、何枚もの透明な層からできています。小さな穴は窓の層の間の圧力差を調整するためのもので、外の空気を客室へ直接入れる穴ではありません。窓の厚みをよく見ると構造を想像できます。",
-    "image": "assets/quiz/NQ007.svg",
-    "imageAlt": "機内の窓の下側に小さな穴があることを示す模式図",
-    "imageCaption": "イラストを見て考えよう",
+    "image": "assets/airplane-window.svg",
+    "imageAlt": "客室窓の小さな穴の位置を示した図",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "before"
   },
   {
@@ -851,9 +848,9 @@ window.QUIZ_QUESTIONS = [
     "explanation": "ウイングレットは翼端でできる渦を弱め、誘導抵抗を減らす。",
     "source": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/winglets/",
     "detail": "翼端では、翼の上下の圧力差によって渦が生まれやすくなります。ウイングレットはその渦の影響を減らす工夫です。翼の形を少し変えることが燃料消費にも関係します。",
-    "image": "assets/quiz/NQ055.svg",
-    "imageAlt": "翼の先端が上向きに折れた形の模式図",
-    "imageCaption": "イラストを見て考えよう",
+    "image": "assets/wingtip.svg",
+    "imageAlt": "飛行機の主翼と上向きの翼端の図",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "before"
   },
   {
@@ -920,9 +917,9 @@ window.QUIZ_QUESTIONS = [
     "source": "https://www.faa.gov/Air_traffic/publications/atpubs/aim_html/chap4_section_3.html",
     "difficulty": "hard",
     "detail": "滑走路番号『09』は、およそ東（90度）の方向を示します。反対側から同じ滑走路に入ると、方位は約180度違うので番号も変わります。滑走路を見たら数字を方角に直してみましょう。",
-    "image": "assets/quiz/NQ059.svg",
-    "imageAlt": "09と27の滑走路番号と方角を示す模式図",
-    "imageCaption": "解説図：答えたあとに確認しよう",
+    "image": "assets/runway-number.svg",
+    "imageAlt": "滑走路に09と記されている図",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "after"
   },
   {
@@ -954,9 +951,9 @@ window.QUIZ_QUESTIONS = [
     "explanation": "マーシャラーが合図で飛行機を所定の位置へ案内する。",
     "source": "https://www.nrtas.ana-g.com/recruit/job/ground",
     "detail": "マーシャラーはパイロットから見える位置で合図を送り、飛行機を指定の停止位置へ案内します。地上作業では、人と機械が決まった合図で協力することが安全につながります。",
-    "image": "assets/quiz/NQ061.svg",
-    "imageAlt": "地上でライトを持ち飛行機を誘導する人物の模式図",
-    "imageCaption": "イラストを見て考えよう",
+    "image": "assets/marshaller.svg",
+    "imageAlt": "誘導棒を持つ地上スタッフと航空機の図",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "before"
   },
   {
@@ -972,7 +969,10 @@ window.QUIZ_QUESTIONS = [
     "answer": 1,
     "explanation": "貨物専用機は人の座席の代わりに貨物を大量に搭載する。",
     "source": "https://www.nrtas.ana-g.com/recruit/job/ground",
-    "detail": "貨物専用機には、荷物を大きな単位で積める扉や広い貨物スペースがあります。客室の代わりに荷物を運ぶ設計で、旅客便の床下とは異なる輸送の役割を担います。"
+    "detail": "貨物専用機には、荷物を大きな単位で積める扉や広い貨物スペースがあります。客室の代わりに荷物を運ぶ設計で、旅客便の床下とは異なる輸送の役割を担います。",
+    "image": "assets/cargo-aircraft.svg",
+    "imageAlt": "客室窓の少ない大型飛行機の模式図",
+    "imageCaption": "図を見て考えてみよう"
   },
   {
     "id": "NQ063",
@@ -1141,9 +1141,9 @@ window.QUIZ_QUESTIONS = [
     "explanation": "A380は機体のほぼ全長にわたって旅客用デッキが上下2層ある、非常に珍しい飛行機だ。",
     "source": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a380",
     "detail": "一般的な旅客機の2階席は一部分だけの場合がありますが、A380は上下2層が機体のほぼ全長に続きます。座席の配置が異なると、乗り降りや機内サービスの工夫も変わります。",
-    "image": "assets/quiz/NQ073.svg",
-    "imageAlt": "大型機の2層の旅客用デッキを示す模式図",
-    "imageCaption": "解説図：答えたあとに確認しよう",
+    "image": "assets/a380.svg",
+    "imageAlt": "大型旅客機の横から見た外観図",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "after"
   },
   {
@@ -1176,9 +1176,9 @@ window.QUIZ_QUESTIONS = [
     "explanation": "誘導路の端は青い灯火で示される。滑走路の端を示す灯火は一般に白系で、役割によって色を使い分けている。",
     "source": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap2_section_1.html",
     "detail": "夜の空港では、色で道の役割を伝えます。誘導路の端が青、中心線が緑です。同じ青や緑でも、道路の信号機とは意味が違うので、航空専用のルールとして覚えましょう。",
-    "image": "assets/quiz/NQ075.svg",
-    "imageAlt": "誘導路の青い縁灯と緑の中心線灯を示す模式図",
-    "imageCaption": "解説図：答えたあとに確認しよう",
+    "image": "assets/taxiway-lights.svg",
+    "imageAlt": "灯火が並ぶ夜間の誘導路の模式図。色は省略してある",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "after"
   },
   {
@@ -1212,9 +1212,9 @@ window.QUIZ_QUESTIONS = [
     "explanation": "ほぼ同じ方向を向く平行滑走路を区別するため、進入方向から見て左はL、右はR、3本なら中央にCを付ける場合がある。",
     "source": "https://www.faa.gov/Air_traffic/Publications/atpubs/aip_html/part3_ad_section_1.1.html",
     "detail": "平行な滑走路が複数あると番号だけでは区別できません。そこで進入方向から見た左にL、右にR、中央にCを付けます。反対側から見ると左右が入れ替わる点にも注意です。",
-    "image": "assets/quiz/NQ077.svg",
-    "imageAlt": "平行滑走路のL、C、R配置を示す模式図",
-    "imageCaption": "解説図：答えたあとに確認しよう",
+    "image": "assets/runway-letters.svg",
+    "imageAlt": "3本の平行滑走路を上から見た模式図。左右の記号は省略",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "after"
   },
   {
@@ -1314,9 +1314,9 @@ window.QUIZ_QUESTIONS = [
     "explanation": "当初は富里村付近が候補地に内定したが、地元で反対運動が広がった。政府はその後、三里塚を中心とする案に変更し、1966年に決定した。",
     "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-progress/",
     "detail": "1963年には富里村周辺が候補地となりましたが、そこで反対運動が起こりました。計画が三里塚へ移ったことで、別の地域の人々に影響が及びました。『場所を変えれば問題が消える』とは限りません。",
-    "image": "assets/quiz/NQ083.svg",
-    "imageAlt": "富里村周辺の候補地から三里塚中心の建設地へ変更した経緯の模式図",
-    "imageCaption": "解説図：答えたあとに確認しよう",
+    "image": "assets/narita-geography.svg",
+    "imageAlt": "空港の候補地が変更された流れを示す模式図。地図ではない",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "after"
   },
   {
@@ -1350,9 +1350,9 @@ window.QUIZ_QUESTIONS = [
     "explanation": "土地を小さく分けて多くの人が権利を持つことで、建設用地の取得を難しくしようとする運動だった。歴史の背景を知る手がかりになる。",
     "source": "https://www.npa.go.jp/hakusyo/s63/s630101.html",
     "detail": "一坪運動では土地を細かく分け、多くの人が権利を持つようにしました。土地を取得する側の手続きを難しくする方法です。『なぜ土地の所有権を使ったのか』まで考えると運動の仕組みが見えます。",
-    "image": "assets/quiz/NQ085.svg",
-    "imageAlt": "土地を細分化して多数の権利者が関わる一坪運動の模式図",
-    "imageCaption": "解説図：答えたあとに確認しよう",
+    "image": "assets/one-tsubo.svg",
+    "imageAlt": "農地が小さな区画に分かれた概念図",
+    "imageCaption": "図を見て考えてみよう",
     "imagePlacement": "after"
   },
   {
