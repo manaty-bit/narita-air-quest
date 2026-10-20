@@ -32,7 +32,11 @@ window.QUIZ_QUESTIONS = [
     "explanation": "飛行機の胴体は丸みがあり、貨物室の形に合わせたコンテナが使われる。",
     "source": "https://www.iata.org/en/programs/cargo/unit-load-devices/",
     "difficulty": "hard",
-    "detail": "飛行機の胴体を輪切りにすると、円に近い形です。四角い箱をそのまま入れるより、端を斜めにしたコンテナの方が床下の曲面に沿わせられます。積み荷の形まで機体に合わせて設計しているのです。"
+    "detail": "飛行機の胴体を輪切りにすると、円に近い形です。四角い箱をそのまま入れるより、端を斜めにしたコンテナの方が床下の曲面に沿わせられます。積み荷の形まで機体に合わせて設計しているのです。",
+    "image": "assets/quiz/NQ002.svg",
+    "imageAlt": "機体の円形断面と底部を斜めにした貨物コンテナの模式図",
+    "imageCaption": "解説図：答えたあとに確認しよう",
+    "imagePlacement": "after"
   },
   {
     "id": "NQ003",
@@ -110,7 +114,11 @@ window.QUIZ_QUESTIONS = [
     "explanation": "旅客機の多層窓の内側の層にある小穴は、窓の層の間の圧力バランスを保つ働きがある。",
     "source": "https://www.airbus.com/en/newsroom/stories/2022-06-how-do-aircraft-windows-work",
     "difficulty": "hard",
-    "detail": "客室の窓は、何枚もの透明な層からできています。小さな穴は窓の層の間の圧力差を調整するためのもので、外の空気を客室へ直接入れる穴ではありません。窓の厚みをよく見ると構造を想像できます。"
+    "detail": "客室の窓は、何枚もの透明な層からできています。小さな穴は窓の層の間の圧力差を調整するためのもので、外の空気を客室へ直接入れる穴ではありません。窓の厚みをよく見ると構造を想像できます。",
+    "image": "assets/quiz/NQ007.svg",
+    "imageAlt": "機内の窓の下側に小さな穴があることを示す模式図",
+    "imageCaption": "イラストを見て考えよう",
+    "imagePlacement": "before"
   },
   {
     "id": "NQ008",
@@ -842,7 +850,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 0,
     "explanation": "ウイングレットは翼端でできる渦を弱め、誘導抵抗を減らす。",
     "source": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/winglets/",
-    "detail": "翼端では、翼の上下の圧力差によって渦が生まれやすくなります。ウイングレットはその渦の影響を減らす工夫です。翼の形を少し変えることが燃料消費にも関係します。"
+    "detail": "翼端では、翼の上下の圧力差によって渦が生まれやすくなります。ウイングレットはその渦の影響を減らす工夫です。翼の形を少し変えることが燃料消費にも関係します。",
+    "image": "assets/quiz/NQ055.svg",
+    "imageAlt": "翼の先端が上向きに折れた形の模式図",
+    "imageCaption": "イラストを見て考えよう",
+    "imagePlacement": "before"
   },
   {
     "id": "NQ056",
@@ -857,7 +869,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 2,
     "explanation": "丸みのある形は、窓の周辺に生じる応力の集中を減らす。",
     "source": "https://www.faa.gov/lessons_learned/transport_airplane/accidents/G-ALYU",
-    "detail": "機内が加圧されると、機体や窓の周りには繰り返し力がかかります。鋭い角があるとそこに力が集中しやすく、丸みを持たせる設計は負担の集中を避ける助けになります。"
+    "detail": "機内が加圧されると、機体や窓の周りには繰り返し力がかかります。鋭い角があるとそこに力が集中しやすく、丸みを持たせる設計は負担の集中を避ける助けになります。",
+    "image": "assets/quiz/NQ056.svg",
+    "imageAlt": "角張った窓と丸みのある窓を比較する模式図",
+    "imageCaption": "イラストを見て考えよう",
+    "imagePlacement": "before"
   },
   {
     "id": "NQ057",
@@ -903,7 +919,11 @@ window.QUIZ_QUESTIONS = [
     "explanation": "滑走路番号は方位を十度単位で示し「09」はおよそ90度を表す。",
     "source": "https://www.faa.gov/Air_traffic/publications/atpubs/aim_html/chap4_section_3.html",
     "difficulty": "hard",
-    "detail": "滑走路番号『09』は、およそ東（90度）の方向を示します。反対側から同じ滑走路に入ると、方位は約180度違うので番号も変わります。滑走路を見たら数字を方角に直してみましょう。"
+    "detail": "滑走路番号『09』は、およそ東（90度）の方向を示します。反対側から同じ滑走路に入ると、方位は約180度違うので番号も変わります。滑走路を見たら数字を方角に直してみましょう。",
+    "image": "assets/quiz/NQ059.svg",
+    "imageAlt": "09と27の滑走路番号と方角を示す模式図",
+    "imageCaption": "解説図：答えたあとに確認しよう",
+    "imagePlacement": "after"
   },
   {
     "id": "NQ060",
@@ -933,7 +953,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 0,
     "explanation": "マーシャラーが合図で飛行機を所定の位置へ案内する。",
     "source": "https://www.nrtas.ana-g.com/recruit/job/ground",
-    "detail": "マーシャラーはパイロットから見える位置で合図を送り、飛行機を指定の停止位置へ案内します。地上作業では、人と機械が決まった合図で協力することが安全につながります。"
+    "detail": "マーシャラーはパイロットから見える位置で合図を送り、飛行機を指定の停止位置へ案内します。地上作業では、人と機械が決まった合図で協力することが安全につながります。",
+    "image": "assets/quiz/NQ061.svg",
+    "imageAlt": "地上でライトを持ち飛行機を誘導する人物の模式図",
+    "imageCaption": "イラストを見て考えよう",
+    "imagePlacement": "before"
   },
   {
     "id": "NQ062",
@@ -1116,7 +1140,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 0,
     "explanation": "A380は機体のほぼ全長にわたって旅客用デッキが上下2層ある、非常に珍しい飛行機だ。",
     "source": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a380",
-    "detail": "一般的な旅客機の2階席は一部分だけの場合がありますが、A380は上下2層が機体のほぼ全長に続きます。座席の配置が異なると、乗り降りや機内サービスの工夫も変わります。"
+    "detail": "一般的な旅客機の2階席は一部分だけの場合がありますが、A380は上下2層が機体のほぼ全長に続きます。座席の配置が異なると、乗り降りや機内サービスの工夫も変わります。",
+    "image": "assets/quiz/NQ073.svg",
+    "imageAlt": "大型機の2層の旅客用デッキを示す模式図",
+    "imageCaption": "解説図：答えたあとに確認しよう",
+    "imagePlacement": "after"
   },
   {
     "id": "NQ074",
@@ -1147,7 +1175,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 0,
     "explanation": "誘導路の端は青い灯火で示される。滑走路の端を示す灯火は一般に白系で、役割によって色を使い分けている。",
     "source": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap2_section_1.html",
-    "detail": "夜の空港では、色で道の役割を伝えます。誘導路の端が青、中心線が緑です。同じ青や緑でも、道路の信号機とは意味が違うので、航空専用のルールとして覚えましょう。"
+    "detail": "夜の空港では、色で道の役割を伝えます。誘導路の端が青、中心線が緑です。同じ青や緑でも、道路の信号機とは意味が違うので、航空専用のルールとして覚えましょう。",
+    "image": "assets/quiz/NQ075.svg",
+    "imageAlt": "誘導路の青い縁灯と緑の中心線灯を示す模式図",
+    "imageCaption": "解説図：答えたあとに確認しよう",
+    "imagePlacement": "after"
   },
   {
     "id": "NQ076",
@@ -1179,7 +1211,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 0,
     "explanation": "ほぼ同じ方向を向く平行滑走路を区別するため、進入方向から見て左はL、右はR、3本なら中央にCを付ける場合がある。",
     "source": "https://www.faa.gov/Air_traffic/Publications/atpubs/aip_html/part3_ad_section_1.1.html",
-    "detail": "平行な滑走路が複数あると番号だけでは区別できません。そこで進入方向から見た左にL、右にR、中央にCを付けます。反対側から見ると左右が入れ替わる点にも注意です。"
+    "detail": "平行な滑走路が複数あると番号だけでは区別できません。そこで進入方向から見た左にL、右にR、中央にCを付けます。反対側から見ると左右が入れ替わる点にも注意です。",
+    "image": "assets/quiz/NQ077.svg",
+    "imageAlt": "平行滑走路のL、C、R配置を示す模式図",
+    "imageCaption": "解説図：答えたあとに確認しよう",
+    "imagePlacement": "after"
   },
   {
     "id": "NQ078",
@@ -1195,7 +1231,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 2,
     "explanation": "滑走路番号はおおよその方角から付ける。反対側は180度逆なので数字が18だけ変わり、09の反対は27となる。",
     "source": "https://www.faa.gov/Air_traffic/Publications/atpubs/aip_html/part3_ad_section_1.1.html",
-    "detail": "滑走路番号は磁気方位をおよそ10度単位で表したものです。09の反対向きは、90度＋180度＝270度なので27。角度の計算と実際の空港の表示がつながる問題です。"
+    "detail": "滑走路番号は磁気方位をおよそ10度単位で表したものです。09の反対向きは、90度＋180度＝270度なので27。角度の計算と実際の空港の表示がつながる問題です。",
+    "image": "assets/quiz/NQ078.svg",
+    "imageAlt": "09と27の方位が180度違うことを示す模式図",
+    "imageCaption": "解説図：答えたあとに確認しよう",
+    "imagePlacement": "after"
   },
   {
     "id": "NQ079",
@@ -1273,7 +1313,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 0,
     "explanation": "当初は富里村付近が候補地に内定したが、地元で反対運動が広がった。政府はその後、三里塚を中心とする案に変更し、1966年に決定した。",
     "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-progress/",
-    "detail": "1963年には富里村周辺が候補地となりましたが、そこで反対運動が起こりました。計画が三里塚へ移ったことで、別の地域の人々に影響が及びました。『場所を変えれば問題が消える』とは限りません。"
+    "detail": "1963年には富里村周辺が候補地となりましたが、そこで反対運動が起こりました。計画が三里塚へ移ったことで、別の地域の人々に影響が及びました。『場所を変えれば問題が消える』とは限りません。",
+    "image": "assets/quiz/NQ083.svg",
+    "imageAlt": "富里村周辺の候補地から三里塚中心の建設地へ変更した経緯の模式図",
+    "imageCaption": "解説図：答えたあとに確認しよう",
+    "imagePlacement": "after"
   },
   {
     "id": "NQ084",
@@ -1305,7 +1349,11 @@ window.QUIZ_QUESTIONS = [
     "answer": 0,
     "explanation": "土地を小さく分けて多くの人が権利を持つことで、建設用地の取得を難しくしようとする運動だった。歴史の背景を知る手がかりになる。",
     "source": "https://www.npa.go.jp/hakusyo/s63/s630101.html",
-    "detail": "一坪運動では土地を細かく分け、多くの人が権利を持つようにしました。土地を取得する側の手続きを難しくする方法です。『なぜ土地の所有権を使ったのか』まで考えると運動の仕組みが見えます。"
+    "detail": "一坪運動では土地を細かく分け、多くの人が権利を持つようにしました。土地を取得する側の手続きを難しくする方法です。『なぜ土地の所有権を使ったのか』まで考えると運動の仕組みが見えます。",
+    "image": "assets/quiz/NQ085.svg",
+    "imageAlt": "土地を細分化して多数の権利者が関わる一坪運動の模式図",
+    "imageCaption": "解説図：答えたあとに確認しよう",
+    "imagePlacement": "after"
   },
   {
     "id": "NQ086",
