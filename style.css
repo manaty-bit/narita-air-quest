@@ -594,3 +594,22 @@ body:has(.compact-quest-v3.is-active) .brand small{font-size:9px}
  .compact-quest-v3 .question-card h2{font-size:25px!important;line-height:1.4!important}
  .compact-quest-v3 .option{font-size:17px!important;min-height:70px!important}
 }
+
+/* Quiz V5: optional deep-dive without forcing more height before a tap */
+.compact-quest-v3 .deep-dive{margin-top:12px;border:1px solid #b8dfec;background:#f0faff;border-radius:15px;overflow:hidden}
+.compact-quest-v3 .deep-dive summary{display:flex;align-items:center;justify-content:space-between;gap:9px;list-style:none;cursor:pointer;padding:11px 13px;font-size:15px;line-height:1.5;font-weight:900;color:#166a89;user-select:none}
+.compact-quest-v3 .deep-dive summary::-webkit-details-marker{display:none}
+.compact-quest-v3 .deep-dive summary:hover{background:#e3f6fd}
+.compact-quest-v3 .deep-dive summary:focus-visible{outline:3px solid #ffc35a;outline-offset:-3px}
+.compact-quest-v3 .deep-dive-chevron{font-size:20px;line-height:1;transition:transform .18s ease}
+.compact-quest-v3 .deep-dive[open] .deep-dive-chevron{transform:rotate(180deg)}
+.compact-quest-v3 .deep-dive-body{padding:0 14px 14px}
+.compact-quest-v3 .deep-dive-body p{font-size:15px!important;line-height:1.8!important;margin:3px 0 10px!important;color:#25566a}
+.compact-quest-v3 .source-link{display:inline-flex;align-items:center;color:#0c7595;font-size:13px;line-height:1.6;font-weight:850;text-decoration:underline;text-underline-offset:3px}
+.compact-quest-v3 .source-link:hover{color:#094d77}
+@media(max-width:760px){
+  .compact-quest-v3 .deep-dive summary{font-size:14px;padding:11px 12px}
+  .compact-quest-v3 .deep-dive-body p{font-size:14px!important;line-height:1.7!important}
+  .compact-quest-v3 .deep-dive-body{padding:0 12px 12px}
+  .compact-quest-v3 .source-link{font-size:13px}
+}
