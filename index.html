@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#8fe2d2">
   <meta name="description" content="成田空港の秘密に挑戦！4択問題で連続正解記録を目指す学習クイズアプリ。">
   <title>NARITA AIR QUEST｜連続正解チャレンジ</title>
-  <link rel="stylesheet" href="style.css?v=learning5">
+  <link rel="stylesheet" href="style.css?v=study6">
   <script src="questions.js" defer></script>
-  <script src="app.js?v=learning5" defer></script>
+  <script src="app.js?v=study6" defer></script>
 </head>
 <body>
   <div class="ambient ambient-1" aria-hidden="true"></div>
@@ -61,7 +61,14 @@
 
       <div class="controls-card">
         <div class="controls-heading"><span class="mini-icon">✦</span><div><h2>フライトのじゅんび</h2><p>好きなジャンルを選んで、わくわくクイズに出発しよう。</p></div></div>
-        <div class="launch-row"><div class="input-holder"><label for="category-select">出題ジャンル</label><select id="category-select" aria-label="出題ジャンル"><option value="__all__">すべてのジャンル</option></select></div><button id="start-button" class="btn btn-main" type="button">テイクオフ！ <span aria-hidden="true">✈</span></button></div>
+        <div class="launch-row"><div class="input-holder"><label for="category-select">連続正解チャレンジの出題ジャンル</label><select id="category-select" aria-label="連続正解チャレンジの出題ジャンル"><option value="__all__">すべてのジャンル</option></select></div><button id="start-button" class="btn btn-main" type="button">🔥 連続正解チャレンジ <span aria-hidden="true">✈</span></button></div>
+        <div class="study-launch">
+          <div class="study-launch-copy">
+            <strong>📘 10問の学習モード</strong>
+            <p>全ジャンルからランダムに10問（うち★難問4問）。間違えても次へ進めるよ。答えが見られるのは挑戦した問題だけ！</p>
+          </div>
+          <button id="study-button" type="button" class="btn btn-secondary study-start">10問を学ぶ →</button>
+        </div>
         <p class="small-note" id="available-caption">すべての問題からランダムに出題します。</p>
       </div>
       <div class="info-grid">
@@ -75,16 +82,16 @@
       <div class="game-top">
         <button id="quit-button" class="text-button" type="button">← タイトルへ</button>
         <div class="game-top-actions">
-          <span class="game-mini-title">✈ NRT FLIGHT CHALLENGE</span>
+          <span id="game-mode-title" class="game-mini-title">✈ NRT FLIGHT CHALLENGE</span>
           <button id="sound-toggle" type="button" class="sound-toggle" aria-pressed="false" aria-label="効果音をオンにする">🔇 音OFF</button>
         </div>
       </div>
       <div class="cockpit-layout">
         <aside class="cockpit-dashboard" aria-label="今回のフライト記録">
           <div class="score-strip">
-            <div class="score-item score-item-combo"><span>🔥 連続正解</span><strong id="score-streak">0 <small>COMBO</small></strong></div>
-            <div class="score-item"><span>🏆 自己ベスト</span><strong id="score-best">0</strong></div>
-            <div class="score-item"><span>🧩 現在の問題</span><strong id="score-position">1 / 94</strong></div>
+            <div class="score-item score-item-combo"><span id="score-primary-label">🔥 連続正解</span><strong id="score-streak">0 <small>COMBO</small></strong></div>
+            <div class="score-item"><span id="score-secondary-label">🏆 自己ベスト</span><strong id="score-best">0</strong></div>
+            <div class="score-item"><span id="score-tertiary-label">🧩 現在の問題</span><strong id="score-position">1 / 94</strong></div>
           </div>
           <div id="combo-panel" class="combo-panel" aria-live="polite">
             <div id="combo-icon" class="combo-icon" aria-hidden="true">🛫</div>
@@ -136,8 +143,8 @@
 
     <section id="screen-result" class="screen" aria-labelledby="result-title">
       <div class="result-card"><div class="result-top-icon" aria-hidden="true">✈</div><p class="result-kicker" id="result-kicker">FLIGHT COMPLETE</p><h2 id="result-title">おつかれさま！</h2><p id="result-message">今回の記録はこちら。</p>
-        <div class="result-award" id="result-award" aria-live="polite">🛫 はじめてのフライト</div><div class="result-score"><strong id="result-streak">0</strong><span>問 連続正解</span></div>
-        <div class="result-mini-stats"><span>自己ベスト <b id="result-best">0</b> 問</span><span>挑戦した問題 <b id="result-total">1</b> 問</span></div>
+        <div class="result-award" id="result-award" aria-live="polite">🛫 はじめてのフライト</div><div class="result-score"><strong id="result-streak">0</strong><span id="result-score-label">問 連続正解</span></div>
+        <div class="result-mini-stats"><span><span id="result-best-caption">自己ベスト</span> <b id="result-best">0</b> 問</span><span><span id="result-total-caption">挑戦した問題</span> <b id="result-total">1</b> 問</span></div>
         <div class="result-actions"><button id="retry-button" class="btn btn-main" type="button">もう一度挑戦 ↗</button><button id="return-button" class="btn btn-secondary" type="button">トップに戻る</button></div>
       </div>
     </section>
