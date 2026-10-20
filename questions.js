@@ -1,6 +1,8 @@
-/* NARITA AIR QUEST — 生徒案39問＋再作問13問＋教員案18問。2026年度の事前学習用。
- 個人名は未収録。出典は各問題の source を参照。
-*/
+/* NARITA AIR QUEST — 2026年度成田空港事前学習クイズ。
+ * 元の70問を維持し、航空雑学・成田空港問題24問を追加。
+ * difficulty:"hard" の問題は画面に「★ 難問」と表示。
+ * 出典は各問題の source を参照。生徒の個人名は収録していません。
+ */
 window.QUIZ_QUESTIONS = [
   {
     "id": "NQ001",
@@ -28,7 +30,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 0,
     "explanation": "飛行機の胴体は丸みがあり、貨物室の形に合わせたコンテナが使われる。",
-    "source": "https://www.iata.org/en/programs/cargo/unit-load-devices/"
+    "source": "https://www.iata.org/en/programs/cargo/unit-load-devices/",
+    "difficulty": "hard"
   },
   {
     "id": "NQ003",
@@ -56,7 +59,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 2,
     "explanation": "1910年5月25日に兄弟が一緒に飛んだのは一度だけ。生涯の飛行回数ではない。",
-    "source": "https://www.si.edu/object/archives/sova-nasm-xxxx-0641"
+    "source": "https://www.si.edu/object/archives/sova-nasm-xxxx-0641",
+    "difficulty": "hard"
   },
   {
     "id": "NQ005",
@@ -84,7 +88,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 2,
     "explanation": "洋上脚下げは、氷塊などの落下物対策として行われている。",
-    "source": "https://www.narita-airport.jp/ja/company/csr/story/falling/"
+    "source": "https://www.narita-airport.jp/ja/company/csr/story/falling/",
+    "difficulty": "hard"
   },
   {
     "id": "NQ007",
@@ -98,7 +103,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 1,
     "explanation": "旅客機の多層窓の内側の層にある小穴は、窓の層の間の圧力バランスを保つ働きがある。",
-    "source": "https://www.airbus.com/en/newsroom/stories/2022-06-how-do-aircraft-windows-work"
+    "source": "https://www.airbus.com/en/newsroom/stories/2022-06-how-do-aircraft-windows-work",
+    "difficulty": "hard"
   },
   {
     "id": "NQ008",
@@ -182,7 +188,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 0,
     "explanation": "ヴェルサイユでヒツジ、アヒル、ニワトリが搭乗し、飛行した。",
-    "source": "https://en.chateauversailles.fr/discover/history/key-dates/first-hot-air-balloon-flight"
+    "source": "https://en.chateauversailles.fr/discover/history/key-dates/first-hot-air-balloon-flight",
+    "difficulty": "hard"
   },
   {
     "id": "NQ014",
@@ -238,7 +245,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 2,
     "explanation": "本格的なパイプラインが整う前は、国鉄の貨物列車などによる燃料暫定輸送が行われた。",
-    "source": "https://www.sangiin.go.jp/japanese/joho1/kousei/syuisyo/084/touh/t084010.htm"
+    "source": "https://www.sangiin.go.jp/japanese/joho1/kousei/syuisyo/084/touh/t084010.htm",
+    "difficulty": "hard"
   },
   {
     "id": "NQ018",
@@ -294,7 +302,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 3,
     "explanation": "東峰神社は空港周辺にある。空港周辺の土地の歴史を考える手掛かりになる。",
-    "source": "https://www.narita-airport.jp/ja/company/airport-operation/about-layout/"
+    "source": "https://www.narita-airport.jp/ja/company/airport-operation/about-layout/",
+    "difficulty": "hard"
   },
   {
     "id": "NQ022",
@@ -322,7 +331,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 0,
     "explanation": "成田新幹線の工事実施計画は東京駅を起点とするもので、会計検査院の報告に記録されている。",
-    "source": "https://report.jbaudit.go.jp/org/s57/1982-s57-0297-0.htm"
+    "source": "https://report.jbaudit.go.jp/org/s57/1982-s57-0297-0.htm",
+    "difficulty": "hard"
   },
   {
     "id": "NQ024",
@@ -434,7 +444,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 1,
     "explanation": "NAAの全体計画の計画面積は2,297ha（更なる機能強化の拡張分を含む）。",
-    "source": "https://www.narita-airport.jp/ja/company/airport-operation/about-layout/"
+    "source": "https://www.narita-airport.jp/ja/company/airport-operation/about-layout/",
+    "difficulty": "hard"
   },
   {
     "id": "NQ032",
@@ -462,7 +473,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 2,
     "explanation": "多くの航空機では、高度にフィート、速度にノットが使用される。",
-    "source": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/"
+    "source": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/",
+    "difficulty": "hard"
   },
   {
     "id": "NQ034",
@@ -490,7 +502,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 2,
     "explanation": "米国のカレッジパーク空港は1909年開設で、継続運用する最古の空港として知られる。",
-    "source": "https://www.smithsonianmag.com/air-space-magazine/a-price-too-high-28870489/"
+    "source": "https://www.smithsonianmag.com/air-space-magazine/a-price-too-high-28870489/",
+    "difficulty": "hard"
   },
   {
     "id": "NQ036",
@@ -546,7 +559,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 3,
     "explanation": "5スターを認定するのはWORLD AIRPORT STAR RATING。WORLD AIRPORT AWARDSは別の賞。",
-    "source": "https://www.narita-airport.jp/ja/company/sustainability/society/preferred-airport/skytrax/"
+    "source": "https://www.narita-airport.jp/ja/company/sustainability/society/preferred-airport/skytrax/",
+    "difficulty": "hard"
   },
   {
     "id": "NQ040",
@@ -574,7 +588,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 1,
     "explanation": "ランプコントロールは駐機場などのランプエリアで航空機の動きを調整する仕事。",
-    "source": "https://career.narita-airport.jp/recruit/works/naa-work/admin/index.html"
+    "source": "https://career.narita-airport.jp/recruit/works/naa-work/admin/index.html",
+    "difficulty": "hard"
   },
   {
     "id": "NQ042",
@@ -602,7 +617,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 1,
     "explanation": "ギネス世界記録の記載は200億米ドル。空港本体のほか道路・鉄道など関連インフラを含む。",
-    "source": "https://www.guinnessworldrecords.com/world-records/73137-most-expensive-airport"
+    "source": "https://www.guinnessworldrecords.com/world-records/73137-most-expensive-airport",
+    "difficulty": "hard"
   },
   {
     "id": "NQ044",
@@ -658,7 +674,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 0,
     "explanation": "スミソニアン博物館によると初飛行の日は時速24〜27マイルの強い向かい風が吹いていた。",
-    "source": "https://airandspace.si.edu/stories/editorial/first-flight"
+    "source": "https://airandspace.si.edu/stories/editorial/first-flight",
+    "difficulty": "hard"
   },
   {
     "id": "NQ048",
@@ -714,7 +731,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 0,
     "explanation": "高速飛行での衝撃波に関連する抵抗を抑えるため、後退翼が使われる。",
-    "source": "https://www.grc.nasa.gov/WWW/k-12/airplane/hisub.html"
+    "source": "https://www.grc.nasa.gov/WWW/k-12/airplane/hisub.html",
+    "difficulty": "hard"
   },
   {
     "id": "NQ052",
@@ -826,7 +844,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 2,
     "explanation": "滑走路番号は方位を十度単位で示し「09」はおよそ90度を表す。",
-    "source": "https://www.faa.gov/Air_traffic/publications/atpubs/aim_html/chap4_section_3.html"
+    "source": "https://www.faa.gov/Air_traffic/publications/atpubs/aim_html/chap4_section_3.html",
+    "difficulty": "hard"
   },
   {
     "id": "NQ060",
@@ -952,7 +971,8 @@ window.QUIZ_QUESTIONS = [
     ],
     "answer": 2,
     "explanation": "1991年11月、立場の異なる四者が初めて一堂に会して対話を行った。",
-    "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-transition/"
+    "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-transition/",
+    "difficulty": "hard"
   },
   {
     "id": "NQ069",
@@ -981,5 +1001,358 @@ window.QUIZ_QUESTIONS = [
     "answer": 1,
     "explanation": "A・B滑走路に加え、将来はC滑走路を新設して3本にする計画。",
     "source": "https://www.narita-airport.jp/ja/company/airport-operation/about-layout/"
+  },
+  {
+    "id": "NQ071",
+    "category": "飛行機の雑学",
+    "difficulty": "hard",
+    "question": "旅客機には雷が落ちることがある。FAA（米国連邦航空局）の資料によると、航空機1機あたりの平均的な被雷回数は？",
+    "choices": [
+      "およそ10年に1回",
+      "およそ1〜2年に1回",
+      "およそ年に1〜2回",
+      "およそ毎日1回"
+    ],
+    "answer": 2,
+    "explanation": "FAAは輸送機について、平均して1機が年に1〜2回落雷を受けるという過去の調査を紹介している。雷から機体や機器を守る設計が重要だ。",
+    "source": "https://www.faa.gov/lessons_learned/transport_airplane/accidents/N709PA"
+  },
+  {
+    "id": "NQ072",
+    "category": "飛行機の雑学",
+    "difficulty": "hard",
+    "question": "世界最大級の旅客機エアバスA380。左右の翼の端から端までの長さ（翼幅）は、約何メートル？",
+    "choices": [
+      "約30メートル",
+      "約50メートル",
+      "約80メートル",
+      "約120メートル"
+    ],
+    "answer": 2,
+    "explanation": "A380の翼幅は約79.8m。長さ約73mの胴体よりも、翼の左右の幅の方が大きい。",
+    "source": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a380"
+  },
+  {
+    "id": "NQ073",
+    "category": "飛行機の雑学",
+    "question": "超大型旅客機A380の客室のつくりとして、正しいものは？",
+    "choices": [
+      "客室が機体のほぼ全長にわたって2階建て",
+      "客室がすべて地下にある",
+      "客室が飛行中に上下に移動する",
+      "客室の床がなく、全員が立つ"
+    ],
+    "answer": 0,
+    "explanation": "A380は機体のほぼ全長にわたって旅客用デッキが上下2層ある、非常に珍しい飛行機だ。",
+    "source": "https://www.airbus.com/en/products-services/commercial-aircraft/passenger-aircraft/a380"
+  },
+  {
+    "id": "NQ074",
+    "category": "飛行機の雑学",
+    "difficulty": "hard",
+    "question": "エアバスの公表資料によると、巨大旅客機A380を構成する部品の数はおよそいくつ？",
+    "choices": [
+      "4千個",
+      "4万個",
+      "40万個",
+      "400万個"
+    ],
+    "answer": 3,
+    "explanation": "エアバスの資料では、A380は約400万点の部品から構成されると紹介されている。多くの国の企業が部品を生産する。",
+    "source": "https://www.airbus.com/sites/g/files/jlcbta136/files/2021-10/EN-Airbus-A380-Facts-and-Figures_0.pdf?pubDate=20251126"
+  },
+  {
+    "id": "NQ075",
+    "category": "飛行機の雑学",
+    "question": "夜の空港で、飛行機が滑走路へ向かう「誘導路」の左右の端を示すライトは、原則何色？",
+    "choices": [
+      "青",
+      "赤",
+      "白",
+      "紫"
+    ],
+    "answer": 0,
+    "explanation": "誘導路の端は青い灯火で示される。滑走路の端を示す灯火は一般に白系で、役割によって色を使い分けている。",
+    "source": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap2_section_1.html"
+  },
+  {
+    "id": "NQ076",
+    "category": "飛行機の雑学",
+    "difficulty": "hard",
+    "question": "空港の誘導路で、飛行機が進む道の「中心線」を示すライトは、一般に何色？",
+    "choices": [
+      "赤",
+      "青",
+      "緑",
+      "オレンジ"
+    ],
+    "answer": 2,
+    "explanation": "誘導路の中心線の灯火は緑色。左右の縁は青色なので、同じ誘導路でも光の役割と色が異なる。",
+    "source": "https://www.faa.gov/air_traffic/publications/atpubs/aim_html/chap2_section_1.html"
+  },
+  {
+    "id": "NQ077",
+    "category": "飛行機の雑学",
+    "difficulty": "hard",
+    "question": "滑走路の番号が「16R」と表示されている。「R」は何を意味する？",
+    "choices": [
+      "右側（Right）の平行滑走路",
+      "雨天専用（Rain）",
+      "緊急用（Rescue）",
+      "滑走路の長さの区分（Range）"
+    ],
+    "answer": 0,
+    "explanation": "ほぼ同じ方向を向く平行滑走路を区別するため、進入方向から見て左はL、右はR、3本なら中央にCを付ける場合がある。",
+    "source": "https://www.faa.gov/Air_traffic/Publications/atpubs/aip_html/part3_ad_section_1.1.html"
+  },
+  {
+    "id": "NQ078",
+    "category": "飛行機の雑学",
+    "difficulty": "hard",
+    "question": "ある滑走路の一方の端には「09」と書いてある。反対側の端の滑走路番号は、通常どうなる？",
+    "choices": [
+      "09",
+      "18",
+      "27",
+      "36"
+    ],
+    "answer": 2,
+    "explanation": "滑走路番号はおおよその方角から付ける。反対側は180度逆なので数字が18だけ変わり、09の反対は27となる。",
+    "source": "https://www.faa.gov/Air_traffic/Publications/atpubs/aip_html/part3_ad_section_1.1.html"
+  },
+  {
+    "id": "NQ079",
+    "category": "飛行機の雑学",
+    "difficulty": "hard",
+    "question": "かつて実際に乗客を運んだ超音速旅客機「コンコルド」。ロンドンからニューヨークまでのおよその飛行時間は？",
+    "choices": [
+      "約1時間",
+      "約3時間半未満",
+      "約8時間",
+      "約15時間"
+    ],
+    "answer": 1,
+    "explanation": "NASAによると、コンコルドはロンドン―ニューヨーク間を3時間半未満で飛べた。一般的な旅客機の半分程度の時間だった。",
+    "source": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-supersonic-flight-grades-5-8/"
+  },
+  {
+    "id": "NQ080",
+    "category": "飛行機の雑学",
+    "question": "超音速の飛行機が通ったとき、地上で大きな「ドーン」という音（ソニックブーム）が聞こえる理由は？",
+    "choices": [
+      "飛行機のスピーカーが鳴るから",
+      "空気の衝撃波が地上に届くから",
+      "エンジンが一瞬止まるから",
+      "雲同士がぶつかるから"
+    ],
+    "answer": 1,
+    "explanation": "音速を超えて飛ぶ物体の周囲では、空気の圧力が急激に変化する衝撃波が生まれ、地上に届くと大きな音として聞こえる。",
+    "source": "https://www.nasa.gov/learning-resources/for-kids-and-students/what-is-supersonic-flight-grades-5-8/"
+  },
+  {
+    "id": "NQ081",
+    "category": "空港の未来",
+    "difficulty": "hard",
+    "question": "NASAの実験機「X-59」がめざしている、超音速飛行の大きな進歩は？",
+    "choices": [
+      "大きな騒音（ソニックブーム）を小さくする",
+      "燃料を使わず永久に飛ぶ",
+      "翼をなくして飛ぶ",
+      "地上に影を落とさないようにする"
+    ],
+    "answer": 0,
+    "explanation": "X-59は超音速飛行で生じる強い衝撃波の音を小さな『ドン』という音に抑える技術の実証をめざしている。",
+    "source": "https://www.nasa.gov/quesst-the-science/"
+  },
+  {
+    "id": "NQ082",
+    "category": "飛行機の雑学",
+    "question": "ジェットエンジンが飛行機を前へ進める力（推力）を生み出す基本的なしくみは？",
+    "choices": [
+      "機体の後ろへ大量の空気やガスを押し出す",
+      "機体の前へ空気を強く押し出す",
+      "地球の磁石に引っ張ってもらう",
+      "雲の上に乗って移動する"
+    ],
+    "answer": 0,
+    "explanation": "ジェットエンジンは後ろへ空気・ガスを加速して押し出す。その反作用で機体が前へ進む。ニュートンの運動法則と関係する。",
+    "source": "https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/what-is-thrust/"
+  },
+  {
+    "id": "NQ083",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "現在の成田市三里塚に建設地が決まる前、1963年に新国際空港の有力候補地となっていたのは現在のどこ？",
+    "choices": [
+      "千葉県富里市付近",
+      "東京都立川市付近",
+      "神奈川県鎌倉市付近",
+      "茨城県つくば市付近"
+    ],
+    "answer": 0,
+    "explanation": "当初は富里村付近が候補地に内定したが、地元で反対運動が広がった。政府はその後、三里塚を中心とする案に変更し、1966年に決定した。",
+    "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-progress/"
+  },
+  {
+    "id": "NQ084",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "1966年、成田空港建設に反対する住民らが結成した組織の名前は？",
+    "choices": [
+      "三里塚・芝山連合空港反対同盟",
+      "成田空港旅行者連盟",
+      "国際線旅客協議会",
+      "新東京飛行機愛好会"
+    ],
+    "answer": 0,
+    "explanation": "三里塚・芝山連合空港反対同盟は、農地や暮らしを守りたいという住民の声から結成された。後に運動には多様な立場の人々が加わった。",
+    "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-progress/"
+  },
+  {
+    "id": "NQ085",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "成田空港の建設反対運動で行われた「一坪運動」。主なねらいとして最も適切なのは？",
+    "choices": [
+      "土地を小さく分けて共有し、買収を難しくする",
+      "一坪の土地に飛行機を着陸させる",
+      "一坪ごとに野菜を競争して育てる",
+      "空港内の店をすべて一坪にする"
+    ],
+    "answer": 0,
+    "explanation": "土地を小さく分けて多くの人が権利を持つことで、建設用地の取得を難しくしようとする運動だった。歴史の背景を知る手がかりになる。",
+    "source": "https://www.npa.go.jp/hakusyo/s63/s630101.html"
+  },
+  {
+    "id": "NQ086",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "1971年、成田空港建設予定地で、法律に基づいて建設に反対する人々の小屋などを強制的に撤去する手続きが行われた。これは何と呼ばれる？",
+    "choices": [
+      "行政代執行",
+      "住民投票",
+      "自治体合併",
+      "都市博覧会"
+    ],
+    "answer": 0,
+    "explanation": "1971年には第1次・第2次の代執行が行われ、住民や支援者と建設側の間に激しい対立が起きた。事業の進め方と住民の権利を考える出来事だ。",
+    "source": "https://www.narita-airport.jp/ja/company/naa/profile/history/"
+  },
+  {
+    "id": "NQ087",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "成田空港は1978年5月20日に開港したが、管制塔の占拠事件などで延期される前の開港予定日はいつだった？",
+    "choices": [
+      "1978年1月1日",
+      "1978年3月30日",
+      "1978年7月7日",
+      "1978年12月25日"
+    ],
+    "answer": 1,
+    "explanation": "当初は1978年3月30日に開港する予定だったが、3月26日の管制塔占拠事件により延期され、5月20日に開港した。",
+    "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-progress/"
+  },
+  {
+    "id": "NQ088",
+    "category": "成田空港の歴史",
+    "question": "1978年、成田空港は当初の計画よりも小規模に開港した。開港時に使えた滑走路は何本だった？",
+    "choices": [
+      "1本",
+      "2本",
+      "3本",
+      "4本"
+    ],
+    "answer": 0,
+    "explanation": "空港建設をめぐる対立や用地取得の難航などがあり、1978年の開港時に使えたのは4,000mのA滑走路1本だけだった。",
+    "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-transition/"
+  },
+  {
+    "id": "NQ089",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "1990年代、成田空港問題の話し合いを進める際、国が反対派に約束した重要なことは？",
+    "choices": [
+      "今後の土地問題の解決に強制的な手段を使わない",
+      "住民との話し合いをすべて中止する",
+      "空港の周りの町をすべて移転させる",
+      "反対する意見を法律で禁じる"
+    ],
+    "answer": 0,
+    "explanation": "対話の前提として、国は第2期工事の土地問題で強制的な手段を取らないと約束した。対立から話し合いへ向かう大きな転換点となった。",
+    "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-progress/"
+  },
+  {
+    "id": "NQ090",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "1991年から1993年に行われた「成田空港問題シンポジウム」。開催された回数は全部で何回？",
+    "choices": [
+      "3回",
+      "8回",
+      "15回",
+      "50回"
+    ],
+    "answer": 2,
+    "explanation": "1991年11月に始まり1993年5月まで計15回。国・空港側・県・反対同盟などが過去の問題を公開で話し合った。",
+    "source": "https://www.narita-airport.jp/ja/company/naa/profile/history/"
+  },
+  {
+    "id": "NQ091",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "1993年、成田空港をめぐる対話が進んだ結果、国・空港側が土地について取り下げたものは？",
+    "choices": [
+      "未買収地の収用裁決申請",
+      "成田空港の名称",
+      "旅客のパスポート",
+      "国際線の時刻表"
+    ],
+    "answer": 0,
+    "explanation": "1993年6月、空港側は未買収地の収用裁決申請を取り下げた。話し合いによって問題を解決する姿勢の具体化の一つだった。",
+    "source": "https://www.narita-airport.jp/ja/company/naa/profile/history/"
+  },
+  {
+    "id": "NQ092",
+    "category": "成田空港の歴史",
+    "difficulty": "hard",
+    "question": "1993〜1994年の「成田空港問題円卓会議」は、最終的に合計何回開かれた？",
+    "choices": [
+      "4回",
+      "12回",
+      "26回",
+      "78回"
+    ],
+    "answer": 1,
+    "explanation": "成田空港問題円卓会議は計12回開催された。空港と地域の共生をめざし、当事者が対等な立場で話し合った。",
+    "source": "https://www.narita-airport.jp/ja/company/naa/profile/history/"
+  },
+  {
+    "id": "NQ093",
+    "category": "成田空港の歴史",
+    "question": "成田空港の長い対立を経て、1994年の円卓会議で重視された考え方はどれ？",
+    "choices": [
+      "空港と地域が話し合い、共生する",
+      "地域住民の声を一切聞かない",
+      "滑走路を1日で全部造る",
+      "過去の対立について調べない"
+    ],
+    "answer": 0,
+    "explanation": "円卓会議では地域との共生や民主的な手続きを重視する方向が確認された。空港の利便性だけでなく地域の生活も大切にする考え方だ。",
+    "source": "https://www.narita-airport.jp/ja/company/csr/kyosei-entaku/"
+  },
+  {
+    "id": "NQ094",
+    "category": "成田空港の歴史",
+    "question": "成田空港と地域の対立・和解への歩みを展示する「空と大地の歴史館」。開館したのは何年？",
+    "choices": [
+      "1978年",
+      "1991年",
+      "2011年",
+      "2026年"
+    ],
+    "answer": 2,
+    "explanation": "空と大地の歴史館は2011年6月23日に開館。空港建設を進めた側と反対した側、双方の立場や思いを後世に伝えることを目的としている。",
+    "source": "https://www.rekishidensho.jp/about/"
   }
 ];
