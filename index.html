@@ -6,9 +6,9 @@
   <meta name="theme-color" content="#8fe2d2">
   <meta name="description" content="成田空港の秘密に挑戦！4択問題で連続正解記録を目指す学習クイズアプリ。">
   <title>NARITA AIR QUEST｜連続正解チャレンジ</title>
-  <link rel="stylesheet" href="style.css?v=readable4">
+  <link rel="stylesheet" href="style.css?v=learning5">
   <script src="questions.js" defer></script>
-  <script src="app.js?v=compact3" defer></script>
+  <script src="app.js?v=learning5" defer></script>
 </head>
 <body>
   <div class="ambient ambient-1" aria-hidden="true"></div>
@@ -118,6 +118,13 @@
           <div id="feedback" class="feedback" role="status" aria-live="polite" hidden>
             <div id="feedback-title" class="feedback-title"></div>
             <p id="feedback-explanation"></p>
+            <details id="deep-dive" class="deep-dive" hidden>
+              <summary>🔎 さらに深掘りしてみよう <span class="deep-dive-chevron" aria-hidden="true">⌄</span></summary>
+              <div class="deep-dive-body">
+                <p id="deep-dive-text"></p>
+                <a id="source-link" class="source-link" target="_blank" rel="noopener noreferrer" hidden>📚 参考資料を開く ↗</a>
+              </div>
+            </details>
           </div>
           <button id="next-button" type="button" class="btn btn-main next-button" hidden>次の問題へ →</button>
         </article>
