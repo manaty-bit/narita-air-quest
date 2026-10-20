@@ -636,3 +636,21 @@ body:has(.compact-quest-v3.is-active) .brand small{font-size:9px}
   .study-start{width:100%;min-height:50px}
   .compact-quest-v3.is-study-mode .score-item-combo strong{font-size:27px!important}
 }
+
+
+/* Review queue v8: wrong answers saved as question IDs only, no answer list. */
+.review-summary{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;margin-top:10px;padding:10px 14px;border:1px solid #c0e6df;background:#ecfff7;border-radius:14px;color:#126d65}
+#review-count{font-size:15px;font-weight:900;white-space:nowrap}
+.review-summary-description{font-size:12px;color:#4b7b77}
+.review-clear-button{border:0;border-radius:9px;background:transparent;color:#416e6e;font-size:12px;font-weight:750;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 8px;margin-left:auto}
+.review-clear-button:hover{background:#daf7ed}
+.review-clear-button:focus-visible{outline:3px solid #f4c550;outline-offset:2px}
+.compact-quest-v3 .review-badge{display:inline-flex;align-items:center;border:1px solid #80d0b2;background:#e6fcf3;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:850;color:#177657;white-space:nowrap}
+.compact-quest-v3 .review-badge[hidden],.review-clear-button[hidden]{display:none!important}
+@media(max-width:760px){
+ .review-summary{padding:9px 12px;gap:6px 10px}
+ #review-count{font-size:14px}
+ .review-summary-description{font-size:11px}
+ .review-clear-button{font-size:11px;padding:5px}
+ .compact-quest-v3 .review-badge{font-size:12px;padding:6px 10px}
+}
