@@ -44,13 +44,40 @@ function updateAvailable() {
   const normal = bank.length - hard;
   $("study-button").disabled = hard < STUDY_HARD_COUNT || normal < STUDY_TOTAL - STUDY_HARD_COUNT;
 }
-// 学習モードは全ジャンルから毎回10問（難問4問、通常6問）。
-// 未出題問題の答えを一覧表示する機能は設けない。
+// 学習モード：全ジャンルから毎回10問、難問4問・通常6問。
+// 最初は通常問題でウォームアップし、5・7・9・10問目に難問を配置する。
 function selectStudyQuestions() {
   const hard = shuffle(bank.filter(q => q.difficulty === "hard")).slice(0, STUDY_HARD_COUNT);
   const normal = shuffle(bank.filter(q => q.difficulty !== "hard")).slice(0, STUDY_TOTAL - STUDY_HARD_COUNT);
   if (hard.length !== STUDY_HARD_COUNT || normal.length !== STUDY_TOTAL - STUDY_HARD_COUNT) return [];
-  return shuffle([...hard, ...normal]);
+  return [
+    normal[0], normal[1], normal[2], normal[3], hard[0],
+    normal[4], hard[1], normal[5], hard[2], hard[3]
+  ];
+}
+
+// 連続正解チャレンジ：通常問題から始め、先へ進むほど難問が出やすい。
+// 全問題を重複なく使い切るので、特定ジャンルや少数の問題でも破綻しない。
+// 難問を置く位置だけを後半寄りに抽選。正解・選択肢は変えない。
+function arrangeChallengeQuestions(selected) {
+  const normal = shuffle(selected.filter(q => q.difficulty !== "hard"));
+  const hard = shuffle(selected.filter(q => q.difficulty === "hard"));
+  const length = selected.length;
+  const warmUp = Math.min(3, normal.length);
+  const candidates = [];
+  for (let i = warmUp; i < length; i++) {
+    const progress = (i - warmUp) / Math.max(1, length - warmUp - 1);
+    const weight = 0.15 + 2.5 * progress * progress;
+    const priority = Math.log(Math.max(Number.MIN_VALUE, Math.random())) / weight;
+    candidates.push({ position: i, priority });
+  }
+  candidates.sort((a, b) => b.priority - a.priority);
+  const hardPositions = new Set(candidates.slice(0, hard.length).map(x => x.position));
+  const arranged = [];
+  for (let i = 0; i < length; i++) {
+    arranged.push(hardPositions.has(i) ? hard.pop() : normal.pop());
+  }
+  return arranged;
 }
 function paintScoreboard() {
   $("score-streak").innerHTML = gameMode === "study"
@@ -63,10 +90,12 @@ function updateStudyPanel(correct = null) {
   panel.classList.remove("is-ready", "is-low", "is-mid", "is-high", "is-top", "is-wrong", "is-pop");
   panel.classList.add(correct === false ? "is-wrong" : "is-low");
   $("combo-icon").textContent = correct === null ? "📘" : correct ? "✨" : "💡";
-  $("combo-title").textContent = correct === null ? "10問で知識を増やそう！"
+  const position = currentIndex + 1;
+  const phase = position <= 4 ? "ウォームアップ" : position <= 8 ? "ステップアップ" : "ファイナルチャレンジ";
+  $("combo-title").textContent = correct === null ? `${phase}！ ${position}/10問`
     : correct ? `正解！ 現在${streak}問正解` : "解説を読んで覚えよう！";
   $("combo-message").textContent = correct === null
-    ? "難問4問入り。間違えても10問目まで続けられるよ。"
+    ? position <= 4 ? "まずは通常問題で準備しよう。" : position <= 8 ? "難問にも挑戦してみよう！" : "最後は難問が2問続くよ！"
     : correct ? "さらに深掘りも読んでみよう。" : "今回はここで学べばOK。次の問題へ！";
 }
 function getComboStage(value) {
@@ -142,7 +171,7 @@ function init() {
 function start(mode = "challenge") {
   if (mode !== "study" && mode !== "challenge") return;
   const selected = category === ALL ? bank : bank.filter(q => q.category === category);
-  const proposed = mode === "study" ? selectStudyQuestions() : shuffle(selected);
+  const proposed = mode === "study" ? selectStudyQuestions() : arrangeChallengeQuestions(selected);
   if (!proposed.length) return;
   gameMode = mode;
   order = proposed;
