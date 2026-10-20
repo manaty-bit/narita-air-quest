@@ -507,3 +507,90 @@ body:has(.compact-quest-v3.is-active) .brand small{font-size:9px}
 @media(prefers-reduced-motion:reduce){
   .compact-quest-v3 .milestone-toast.is-appearing{animation:none!important}
 }
+
+
+/* v4: readable typography; reclaim decorative space rather than shrinking text. */
+.compact-quest-v3 .cockpit-layout{grid-template-columns:minmax(218px,245px) minmax(0,1fr)!important;gap:14px!important}
+.compact-quest-v3 .question-card{padding:18px 24px 19px!important}
+.compact-quest-v3 .question-card h2{
+  font-size:clamp(24px,2.15vw,31px)!important;
+  line-height:1.46!important;
+  letter-spacing:-.018em!important;
+  margin:13px 0 10px!important;
+}
+.compact-quest-v3 .option{
+  font-size:clamp(17px,1.22vw,19px)!important;
+  line-height:1.48!important;
+  min-height:78px!important;
+  padding:12px 14px!important;
+  font-weight:850!important;
+  letter-spacing:0!important;
+}
+.compact-quest-v3 .choice-label{
+  width:36px!important;height:36px!important;flex-basis:36px!important;
+  font-size:16px!important;
+}
+.compact-quest-v3 .category-pill,.compact-quest-v3 .difficulty-badge{
+  font-size:13px!important;padding:7px 12px!important;
+}
+.compact-quest-v3 .question-index{font-size:12px!important}
+.compact-quest-v3 .instruction-line{font-size:13px!important;margin-bottom:11px!important}
+.compact-quest-v3 .feedback-title{font-size:17px!important}
+.compact-quest-v3 .feedback p{font-size:15px!important;line-height:1.7!important}
+.compact-quest-v3 .next-button{font-size:17px!important;min-height:48px!important}
+.compact-quest-v3 .score-item span{font-size:13px!important}
+.compact-quest-v3 .score-item strong{font-size:25px!important}
+.compact-quest-v3 .score-item-combo strong{font-size:43px!important}
+.compact-quest-v3 #combo-title{font-size:16px!important}
+.compact-quest-v3 #combo-message{font-size:12px!important}
+.compact-quest-v3 .flight-board-header{font-size:12px!important}
+.compact-quest-v3 .flight-board-header span:last-child{font-size:11px!important}
+.compact-quest-v3 .flight-board-footer strong{font-size:13px!important}
+.compact-quest-v3 .game-top .text-button{font-size:14px!important}
+.compact-quest-v3 .sound-toggle{font-size:13px!important}
+.compact-quest-v3 .options{gap:10px!important}
+.compact-quest-v3 .question-card .progress-track{margin:10px 0 5px!important}
+
+/* Tablet: let the question take more width. */
+@media(min-width:761px) and (max-width:1020px){
+ .compact-quest-v3 .cockpit-layout{grid-template-columns:minmax(190px,215px) minmax(0,1fr)!important;gap:10px!important}
+ .compact-quest-v3 .question-card{padding:16px 18px!important}
+ .compact-quest-v3 .question-card h2{font-size:25px!important}
+ .compact-quest-v3 .option{font-size:17px!important;padding:10px!important;min-height:77px!important}
+ .compact-quest-v3 .score-item span{font-size:12px!important}
+ .compact-quest-v3 #combo-message{font-size:11px!important}
+}
+
+/* Phone: keep the question large; trim only dashboard chrome. */
+@media(max-width:760px){
+ .compact-quest-v3 .cockpit-layout{grid-template-columns:1fr!important;gap:7px!important}
+ .compact-quest-v3 .question-card{padding:14px 16px 16px!important}
+ .compact-quest-v3 .question-card h2{font-size:clamp(21px,5.5vw,26px)!important;line-height:1.44!important;margin:11px 0 12px!important}
+ .compact-quest-v3 .option{font-size:16px!important;line-height:1.42!important;min-height:56px!important;padding:9px 12px!important}
+ .compact-quest-v3 .choice-label{width:33px!important;height:33px!important;flex-basis:33px!important;font-size:15px!important}
+ .compact-quest-v3 .category-pill,.compact-quest-v3 .difficulty-badge{font-size:12px!important;padding:6px 10px!important}
+ .compact-quest-v3 .question-index{font-size:11px!important}
+ .compact-quest-v3 .score-item span{font-size:12px!important}
+ .compact-quest-v3 .score-item strong{font-size:21px!important}
+ .compact-quest-v3 .score-item-combo strong{font-size:29px!important}
+ .compact-quest-v3 .combo-panel{min-height:39px!important;padding:6px 10px!important}
+ .compact-quest-v3 #combo-title{font-size:14px!important}
+ .compact-quest-v3 .flight-board{padding:7px 10px!important}
+ .compact-quest-v3 .flight-board-header{font-size:11px!important}
+ .compact-quest-v3 .flight-board-header span:last-child{font-size:10px!important}
+ .compact-quest-v3 .flight-board-footer strong{font-size:12px!important}
+ .compact-quest-v3 .feedback-title{font-size:16px!important}
+ .compact-quest-v3 .feedback p{font-size:14px!important;line-height:1.6!important}
+ .compact-quest-v3 .next-button{font-size:16px!important;min-height:46px!important}
+ .compact-quest-v3 .options{gap:8px!important;grid-template-columns:1fr!important}
+}
+/* Larger mobile screens can still use 2 columns only if each choice has enough room. */
+@media(min-width:640px) and (max-width:760px){
+ .compact-quest-v3 .options{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .compact-quest-v3 .option{min-height:75px!important}
+}
+/* Compact desktop windows: preserve reading size, allow scrolling if an answer is unusually long. */
+@media(max-height:750px) and (min-width:761px){
+ .compact-quest-v3 .question-card h2{font-size:25px!important;line-height:1.4!important}
+ .compact-quest-v3 .option{font-size:17px!important;min-height:70px!important}
+}
