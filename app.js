@@ -22,6 +22,7 @@ const questions = raw.filter(validQuestion);
 const ids = new Set();
 const bank = questions.filter(q => { if (ids.has(q.id)) return false; ids.add(q.id); return true; });
 let order = [], currentIndex = 0, streak = 0, answeredCount = 0, locked = false;
+let displayedChoices = []; // [{text, originalIndex}] - original answer keys never change
 let category = ALL, best = loadBest();
 
 function loadBest() { try { return Math.max(0, parseInt(localStorage.getItem(BEST_KEY) || "0", 10) || 0); } catch { return 0; } }
@@ -99,6 +100,7 @@ function init() {
   $("return-button").addEventListener("click", () => { updateHome(); showScreen("home"); });
   document.addEventListener("keydown", (event) => {
     if (!$("screen-quiz").classList.contains("is-active") || event.altKey || event.ctrlKey || event.metaKey) return;
+    if (event.target?.closest?.("summary, a, input, textarea, select")) return;
     if (!locked && /^[1-4]$/.test(event.key)) { event.preventDefault(); choose(Number(event.key) - 1); }
     else if (locked && event.key === "Enter") { event.preventDefault(); next(); }
   });
@@ -132,10 +134,14 @@ function renderQuestion() {
   $("progress-track").setAttribute("aria-valuenow", String(percentage));
   $("feedback").hidden = true;
   $("feedback").classList.remove("is-wrong");
+  $("deep-dive").hidden = true;
+  $("deep-dive").open = false;
+  $("source-link").hidden = true;
   $("next-button").hidden = true;
   const holder = $("options");
   holder.replaceChildren();
-  q.choices.forEach((option, i) => {
+  displayedChoices = shuffle(q.choices.map((text, originalIndex) => ({text, originalIndex})));
+  displayedChoices.forEach(({text: option}, i) => {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "option";
@@ -153,7 +159,9 @@ function renderQuestion() {
 function choose(index) {
   if (locked) return;
   locked = true; answeredCount++;
-  const q = order[currentIndex]; const correct = index === q.answer;
+  const q = order[currentIndex];
+  const correctChoicePosition = displayedChoices.findIndex(c => c.originalIndex === q.answer);
+  const correct = index === correctChoicePosition;
   if (correct) {
     streak++;
     if (streak > best) { best = streak; storeBest(best); }
@@ -172,15 +180,31 @@ function choose(index) {
   const elements = Array.from($("options").children);
   elements.forEach((button, i) => {
     button.disabled = true;
-    if (i === q.answer) button.classList.add("is-correct");
+    if (i === correctChoicePosition) button.classList.add("is-correct");
     else if (i === index) button.classList.add("is-wrong");
     else button.classList.add("is-muted");
   });
   const stage = getComboStage(streak);
   $("feedback-title").innerHTML = correct
     ? `✦ 正解！ ナイスフライト！ <strong>${stage.title}</strong>`
-    : `あと一歩！ 正解は ${LETTERS[q.answer]}`;
+    : `あと一歩！ 正解は ${LETTERS[correctChoicePosition]}：${q.choices[q.answer]}`;
   $("feedback-explanation").textContent = q.explanation || "解説は準備中です。";
+  const hasDetail = typeof q.detail === "string" && q.detail.trim().length > 0;
+  $("deep-dive").hidden = !hasDetail;
+  $("deep-dive").open = false;
+  $("deep-dive-text").textContent = hasDetail ? q.detail : "";
+  const sourceLink = $("source-link");
+  sourceLink.hidden = true;
+  sourceLink.removeAttribute("href");
+  if (hasDetail && typeof q.source === "string") {
+    try {
+      const sourceUrl = new URL(q.source);
+      if (sourceUrl.protocol === "https:" || sourceUrl.protocol === "http:") {
+        sourceLink.href = sourceUrl.href;
+        sourceLink.hidden = false;
+      }
+    } catch { /* 無効なURLは表示しない */ }
+  }
   $("feedback").classList.toggle("is-wrong", !correct);
   $("feedback").hidden = false;
   $("next-button").textContent = (!correct || currentIndex === order.length - 1) ? "結果を見る →" : "次の問題へ →";
