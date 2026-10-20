@@ -654,3 +654,10 @@ body:has(.compact-quest-v3.is-active) .brand small{font-size:9px}
  .review-clear-button{font-size:11px;padding:5px}
  .compact-quest-v3 .review-badge{font-size:12px;padding:6px 10px}
 }
+
+/* Educational diagrams. Only questions with images allocate space. */
+.compact-quest-v3 .quiz-illustration{margin:8px 0 12px;max-width:720px;border:1px solid #cde9ef;border-radius:15px;overflow:hidden;background:#eafaff}
+.compact-quest-v3 .quiz-illustration img{display:block;width:100%;height:auto;max-height:205px;object-fit:contain}
+.compact-quest-v3 .quiz-illustration figcaption{font-size:12px;font-weight:750;color:#567d8e;padding:5px 12px 7px;background:#f5fcff;text-align:center}
+.compact-quest-v3 .quiz-illustration[hidden]{display:none!important}
+@media(max-width:760px){.compact-quest-v3 .quiz-illustration{margin:7px 0 9px}.compact-quest-v3 .quiz-illustration img{max-height:160px}.compact-quest-v3 .quiz-illustration figcaption{font-size:11px}}
